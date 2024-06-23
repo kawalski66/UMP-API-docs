@@ -11,11 +11,11 @@ to inform users about updates, changes, and new features in different API versio
 <td>Changes</td>
 </tr>
 <tr>
-<td><a href="Pet.md"><code>/pet/gift</code></a></td>
+<td><a href="UA-portal.md"><code>/pet/gift</code></a></td>
 <td>Deprecated and removed from the documentation</td>
 </tr>
 <tr>
-<td><a href="Pet.md"><code>/pet/{petId}</code></a></td>
+<td><a href="UA-portal.md"><code>/pet/{petId}</code></a></td>
 <td>
 <list>
 <li>added the <code>status</code> field</li>

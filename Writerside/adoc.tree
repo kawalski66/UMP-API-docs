@@ -3,14 +3,13 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="adoc"
-                 name="API Docs"
-                 start-page="api-docs.md">
+                  name="UMP API Docs"
+                  start-page="ump-api-start-page.md">
 
-    <toc-element topic="api-docs.md"/>
-    <toc-element topic="API-quickstart.md"/>
+    <toc-element topic="ump-api-start-page.md"/>
+    <toc-element topic="ump-api-quickstart.md"/>
     <toc-element topic="API-reference.md">
-        <toc-element topic="Pet.md">
-        </toc-element>
+        <toc-element topic="UA-portal.md"/>
         <toc-element toc-title="Store">
             <toc-element topic="Returns-pet-inventories-by-status.md"/>
             <toc-element topic="Place-an-order-for-a-pet.md"/>
