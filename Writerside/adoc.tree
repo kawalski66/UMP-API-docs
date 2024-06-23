@@ -9,7 +9,17 @@
     <toc-element topic="ump-api-start-page.md"/>
     <toc-element topic="ump-api-quickstart.md"/>
     <toc-element topic="API-reference.md">
-        <toc-element topic="UA-portal.md"/>
+        <toc-element topic="UA-portal.md">
+            <toc-element topic="Aircraft.md"/>
+            <toc-element topic="Sensor.md"/>
+            <toc-element topic="Product.md"/>
+        </toc-element>
+        <toc-element topic="Crew-Portal-API.md">
+            <toc-element topic="Operator.md"/>
+            <toc-element topic="Engineer.md"/>
+        </toc-element>
+        <toc-element topic="ICT-Devices-Portal-API.md"/>
+        <toc-element topic="GSE-Portal-API.md"/>
     </toc-element>
     <toc-element topic="Changes.md"/>
 </instance-profile>
