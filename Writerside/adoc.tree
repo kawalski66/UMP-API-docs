@@ -7,8 +7,8 @@
                   start-page="ump-api-start-page.md">
 
     <toc-element topic="ump-api-start-page.md"/>
-    <toc-element topic="ump-api-quickstart.md"/>
     <toc-element topic="API-reference.md">
+        <toc-element topic="ump-api-quickstart.md"/>
         <toc-element topic="UA-portal.md">
             <toc-element topic="Aircraft.md"/>
             <toc-element topic="Sensor.md"/>

@@ -1,0 +1,126 @@
+openapi: '3.0.0'
+info:
+  description: "# Introduction\nThis template is intended to to be a good starting point for describing\nhow users can interact with the various methods of your API. \nWe recommend informing the user about various aspects of your api such as:\n\n\n# Getting Started\n\n## Using The API\n\n## Extra Developer Documentation:\nIf you have more developer documentation or tutorials specific to helping\ndevelopers interact with this endpoint.\n**url:** 'https://example.com/documentation/link'\n\n# Uptime & Planned Outages\n\n# Authentication & Rate Limits\n# Terms of Use, Copyright and Attribution\nPlease ensure you comply with the following policies prior to using any data\nwithin this API.\n\n- [Terms of Use](https://example.com/terms-use)\n- [Privacy Policy](https://example.com/privacy)\n\n# Contact Us\n"
+  contact:
+    email: 'jakub.manak@unicornuniversity.net'
+    url: 'https://example.com/contact'
+  version: 'unreleased'
+  title: 'UA Portal REST API'
+paths:
+  /ump/v1/aircrafts/aircraft/findById, findByType:
+    post:
+      tags:
+        - aircraft
+      parameters: []
+      responses:
+        '201':
+          description: 'Created.'
+          content:
+            application/json:
+              examples:
+                response:
+                  value: "{\n  \"status\": \"201\",\n  \"description\": \"The resource was created. The Response Location HTTP header should be returned to indicate where the newly created resource is accessible.\",\n  \"more_info\": \"\"\n} \n"
+      summary: 'Create a new aircraft'
+      operationId: 'createaircraft_findById, findByType_findById, findByType'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/aircraft'
+      description: "Some description of the operation.\n\n***You can use keep using `markdown` here to write out your description in more detail.***\n"
+components:
+  schemas:
+    aircraft:
+      type: object
+      properties:
+        aircraft_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the aircraft.
+        type:
+          type: string
+          description: Type of UA, fixed wing, rotor wing
+        model:
+          type: string
+          description: The model name of the aircraft.
+        manufacturer:
+          type: string
+          description: The manufacturer of the aircraft.
+        registration_number:
+          type: string
+          description: The unique registration number of the aircraft.
+        status:
+          type: string
+          description: Current status of the aircraft (e.g., operational, under maintenance).
+        last_maintenance_date:
+          type: number
+          description: The Date in long unix epoch when the aircraft last underwent maintenance.
+        next_maintenance_date:
+          type: number
+          description: The scheduled Date in long unix epoch for the next maintenance.
+        location:
+          type: string
+          description: Current location of the aircraft.
+        operational_hours:
+          type: number
+          description: Total operational hours logged by the aircraft.
+        last_flight:
+          type: number
+          description: Date in long unix epoch.
+        sensors:
+          type: array
+          items:
+            $ref: '#/components/schemas/sensor'
+          description: List of sensor payloads attached to the aircraft, each containing
+        date_created:
+          type: number
+          description: Date in long unix epoch of creations.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification
+      description: UA which can be tracked for maintenance.
+    sensor:
+      type: object
+      properties:
+        sensor_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the sensor.
+        type:
+          type: string
+          description: Type of sensor - EO, MWIR, SWIR
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/product'
+          description: List of products related to the sensor.
+        last_maintenance_date:
+          type: number
+          description: The Date in long unix epoch when the sensor last underwent maintenance.
+        next_maintenance_date:
+          type: number
+          description: The scheduled Date in long unix epoch for the next maintenance.
+        date_created:
+          type: number
+          description: Date in long unix epoch of creation.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification
+      description: Type of sensors that can be mounted to UA.
+    product:
+      type: object
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          description: Unique id of product.
+        type:
+          type: string
+          description: Enumeration type of UA - Scan Eagle, Heron, Raven
+        date_created:
+          type: number
+          description: Date in long unix epoch of creation.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification
+      description: Type of products that can be mounted to UA.
