@@ -1,0 +1,82 @@
+@startuml
+skinparam TitleFontSize 25
+
+page 794x1123
+' scale 0.4
+
+title "Containers for UAS Management Portal"
+
+!include <C4/C4_Container>
+
+frame "users" as users {
+Person(co, "Control officer","Officer in Command")
+Person(trainingInspector, "Inspector", "Responsible for all Exercises and Deployment Stuff")
+Person(instrucotr, "Instructor", "Responsible for training")
+Person(safetyInspector, "Flight Safety Inspector","Responsible for safety in flying operations")
+Person(chiefEngineer, "Chief Engineer", "Main Technican for Flying devices and Ground Equipment")
+Person(meteoService, "Meteorology service", "Support unit for flying operations")
+Person(aviationInfoService, "Flight Information Service", "Responsible for Airspace management")
+Person_Ext(jtac, "Contracting Authority", "Supported Element")
+Person_Ext(izsUnits, "Emergency Response Units", "Police, Firefighters, etc.")
+}
+
+System_Boundary(ump, "UAS Management Portal") {
+  Container(umpPortal, "UMP Portal", "REST API\nJava/Spring Boot", "Handles and Routes UAS management requests")
+  Container(uas, "UAS System API", "Java/Spring Boot", "Handles UAS operations")
+  Container(crew, "Crew Management API", "Java/Spring Boot", "Handles crew data")
+  Container(gse, "GSE System API", "Java/Spring Boot", "Handles ground support equipment data")
+  Container(ict, "ICT Devices API", "Java/Spring Boot", "Handles ICT devices data")
+}
+
+frame "Provides legacy essential services" as legSys {
+System_Ext(isl, "Logistics Information System", "Handles logistics data")
+System_Ext(sis, "Staff Information System", "Handles Authentication/Authorization")
+}
+
+System_Boundary(uasRel, "UAS Related System") {
+System_Ext(uasSystem, "UAS System", "Handles UAS data")
+System_Ext(crewSystem, "Crew System", "Handles crew data")
+System_Ext(gseSystem, "Ground Support Equipment System", "Handles ground equipment data")
+System_Ext(ictSystem, "ICT Devices System", "Handles ICT devices data")
+
+ContainerDb_Ext(uasDb, "UAS Database", "", "Stores all data related to UAS")
+ContainerDb_Ext(crewDb, "Crew Database", "", "Stores all data related to crew")
+ContainerDb_Ext(gseDb, "GSE Database", "", "Stores all data related to GSE")
+ContainerDb_Ext(ictDb, "ICT Database", "", "Stores all data related to ICT devices")
+}
+Rel_D(co, umpPortal, "Uses to access services for command operations", "HTTP/JSON")
+Rel_D(trainingInspector, umpPortal, "Uses to manage exercises and deployments", "HTTP/JSON")
+Rel_D(instrucotr, umpPortal, "Uses for managing and planning training", "HTTP/JSON")
+Rel_D(safetyInspector, umpPortal, "Uses to ensure safety during flight operations", "HTTP/JSON")
+Rel_D(chiefEngineer, umpPortal, "Uses to manage aircrafts and GSE", "HTTP/JSON")
+Rel_D(meteoService, umpPortal, "Uses to support flight operations", "HTTP/JSON")
+Rel_D(aviationInfoService, umpPortal, "Uses to manage airspace", "HTTP/JSON")
+Rel_D(jtac, umpPortal, "Uses to access relevant information", "HTTP/JSON")
+Rel_D(izsUnits, umpPortal, "Uses to access information needed during emergencies", "HTTP/JSON")
+
+Rel(umpPortal, uas, "Requests UA data", "HTTP/JSON")
+Rel(umpPortal, crew, "Requests personnel data", "HTTP/JSON")
+Rel(umpPortal, gse, "Requests GSE data", "HTTP/JSON")
+Rel(umpPortal, ict, "Requests ICT devices data", "HTTP/JSON")
+
+
+Rel(uas, uasSystem, "Sends/Fetch UA data", "HTTP/JSON")
+Rel(crew, crewSystem, "Sends/Fetch personel data", "HTTP/JSON")
+Rel(gse, gseSystem, "Sends/Fetch GSE data", "HTTP/JSON")
+Rel(ict, ictSystem, "Sends/Fetch ICT devices data", "HTTP/JSON")
+
+Rel(uasSystem, uasDb, "Reads/Writes to","JDBC")
+Rel(crewSystem, crewDb, "Reads/Writes to","JDBC")
+Rel(gseSystem, gseDb, "Reads/Writes to","JDBC")
+Rel(ictSystem, ictDb, "Reads/Writes to","JDBC")
+
+Rel_L(umpPortal, legSys, "Authentication/Authorization", "HTTP/JSON")
+
+SHOW_LEGEND()
+
+leftfooter
+  |=    [Container Diagram] - UAS Management Portal            |
+  |     C4 Level 2 diagram of UMP by Jakub Manak with PlantUML |
+  |     %date("2024-06-28")                      \|                         v3    |
+endfooter
+@enduml

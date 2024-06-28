@@ -1,0 +1,50 @@
+@startuml
+skinparam TitleFontSize 25
+
+
+'page 794x1123
+' scale 0.4
+
+title "Context of UAS Management Portal"
+
+!include <C4/C4_Container>
+
+Person(user, "User","Person or System what has profit from UMP")
+
+System(ump, "UAS Management Portal", "Allows access to resources")
+
+System_Boundary(c1, "UAS related systems") {
+  System_Ext(uas, "UAS System", "Handle UAS data")
+  System_Ext(crew, "Crew System", "Handle crew data")
+  System_Ext(gse, "Ground Support Equipment", "Handle ground equipment data")
+  System_Ext(ict, "ICT Devices System", "Handle ICT devices data")
+}
+
+System_Ext(uas, "UAS System", "Handle UAS data")
+System_Ext(crew, "Crew System", "Handle crew data")
+System_Ext(gse, "Ground Support Equipment", "Handle ground equipment data")
+System_Ext(ict, "ICT Devices System", "Handle ICT devices data")
+
+frame "Provides essential legacy services" as legSys {
+    System_Ext(isl, "Logistics Information System", "Handle all logistics data")
+System_Ext(sis, "Staff Information System", "Authentication/Authorization")
+}
+
+
+Rel_D(user, ump, "Search, read,\nwrite data", "HTTPS")
+
+Rel_L(ump, legSys, "Authentication/Authorization", "HTTP/JSON")
+Rel_D(ump, c1, "Search, read, write\n UAS related data", "HTTP/JSON")
+
+SHOW_LEGEND()
+'LAYOUT_WITH_LEGEND()
+
+
+leftfooter
+
+  |=    [System Context] - UAS Management Portal        |
+  |     HLD diagram of UMP by Jakub Manak with PlantUML |
+  |     %date("2024-06-28")                      \|                  v3|
+
+endfooter
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+skinparam TitleFontSize 25
+
+page 794x1123
+'scale 0.4
+
+title "Component Diagram for UAS Management Portal"
+
+!include <C4/C4_Component>
+
+System_Ext(sis, "Staff Information System", "Provides authentication and authorization")
+System_Ext(elk, "ElasticSearch", "Logs")
+System_Ext(redis, "Redis", "Cache")
+
+System_Ext(uasRelatedSys, "UAS Related System APIs", "Provides resources")
+
+Person(user, "User", "User who wants interact with UMP")
+
+
+
+Container_Boundary(ump, "UMP (Java/Spring Boot)") {
+  Component(validation, "Validation", "Component", "Validates request parameters")
+  Component(authentication, "Authentication Authorization", "Component", "Request authentication and authorization")
+  Component(rateLimiting, "Rate Limiting", "Component", "Controls the rate of requests")
+  Component(dynamicRouting, "Dynamic Routing", "Component", "Routes requests to the appropriate service")
+  Component(serviceDiscovery, "Service Discovery", "Component", "Discovers available services")
+  'Component(responseHandler, "Response Handler", "Component", "Process responses")
+
+Rel_L(authentication, validation, "Checks authentication and authorization")
+Rel_D(validation, rateLimiting, "Applies rate limiting")
+Rel_L(rateLimiting, serviceDiscovery, "Routes to the appropriate service")
+Rel_D(serviceDiscovery, dynamicRouting, "Discovers and routes to the correct service")
+
+Rel_R(authentication,sis,"Requests\nAuth")
+
+rateLimiting -- misc  #line:white
+
+frame "misc"{
+  Component(errorHandling, "Error Handling", "Component", "Manages errors during request processing")
+  Component(loggingMonitoring, "Logging and Monitoring", "Component", "Logs requests and monitors the system")
+  Component(cache, "Cache", "Component", "Caches responses for quick retrieval")
+  }
+}
+
+Rel(user,authentication,"Sends requests", "HTTPS")
+
+Rel_R(errorHandling,loggingMonitoring,"Sends\nError messages")
+
+
+loggingMonitoring -right-> elk :Reads/Writes
+cache -right-> redis :Reads/Write
+
+errorHandling --> cache #line:white
+
+Rel_L(dynamicRouting,uasRelatedSys,"Sends\nRequests","HTTP/JSON")
+Rel_R(uasRelatedSys,serviceDiscovery,"Registers\nservices")
+'Rel_R(uasRelatedSys,responseHandler,"Registers\nservices")
+'Rel_U(responseHandler,user,"Registers\nservices")
+
+SHOW_LEGEND()
+
+leftfooter
+  |=    [Component Diagram] - UMP for UAS Management Portal            |
+  |     C4 Level 3 diagram of UMP by Jakub Manak with PlantUML |
+  |     %date("yyyy-MM-dd")                      \|                                                  v4    |
+endfooter
+@enduml
