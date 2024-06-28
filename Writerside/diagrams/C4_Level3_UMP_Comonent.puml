@@ -42,7 +42,7 @@ frame "misc"{
   }
 }
 
-Rel(user,authentication,"Sends requests", "HTTPS")
+Rel(user,authentication,"Sends requests", "HTTP/JSON")
 
 Rel_R(errorHandling,loggingMonitoring,"Sends\nError messages")
 
