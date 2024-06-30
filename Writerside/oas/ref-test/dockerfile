@@ -1,0 +1,11 @@
+FROM swaggerapi/swagger-ui
+
+# Create a directory for your API definitions
+RUN mkdir -p /usr/share/nginx/html/api
+
+# Copy your API definition files into the container
+COPY ./pet-api.yaml /usr/share/nginx/html/api/swagger.yaml
+COPY ./schemas/pet.yaml /usr/share/nginx/html/api/schemas/pet.yaml
+
+# Set environment variables to point to your main API definition file
+ENV SWAGGER_JSON=/usr/share/nginx/html/api/swagger.yaml

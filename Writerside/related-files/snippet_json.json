@@ -1,0 +1,29 @@
+{
+  "status": "success",
+  "message": "Data retrieved successfully",
+  "data": [
+    {
+      "transponder_id": "550e8400-e29b-41d4-a716-446655440000",
+      "calibration": 1609459200,
+      "mode": "Mode A",
+      "date_created": 1609459200,
+      "date_modified": 1612137600
+    },
+    {
+      "transponder_id": "550e8400-e29b-41d4-a716-446655440001",
+      "calibration": 1612137600,
+      "mode": "Mode B",
+      "date_created": 1612137600,
+      "date_modified": 1614556800
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "totalItems": 50,
+      "itemsPerPage": 10,
+      "currentPage": 1,
+      "totalPages": 5
+    },
+    "version": "1.0.0"
+  }
+}
