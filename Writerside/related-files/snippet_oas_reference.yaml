@@ -1,0 +1,22 @@
+# OAS_reference_UA_Portal.yaml
+openapi: "3.0.0"
+info:
+  description: "This document provides an overview of the UAS Management Portal (UMP) REST API, designed to manage personnel and equipment related to unmanned aerial systems (UAS), including drones and their ground support equipment. The API is designed using RESTful web services, JSON for structured data, and Active Directory for secure user authentication and authorization. The goal is to create a robust and scalable REST API that enables efficient communication between various information components related to UAS operations."
+  contact:
+    email: "jakub.manak@unicornuniversity.net"
+    url: "https://example.com/contact"
+  version: "unreleased"
+  title: "UA Portal REST API"
+paths:
+  /ump/aircrafts:
+    $ref: "./paths/aircrafts.yaml"
+  /ump/aircrafts/{aircraft_id}:
+    $ref: "./paths/aircraft.yaml"
+components:
+  parameters:
+    $ref: "./parameters/parameters.yaml"
+  schemas:
+    $ref: "./schemas/schemas.yaml"
+  responses:
+    $ref: "./responses/responses.yaml"
+
