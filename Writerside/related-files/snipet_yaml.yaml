@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: UAS Management Portal API
+  description: API for managing UAS operations, crew, GSE, and ICT devices.
+  version: 1.0.0
+servers:
+  - url: https://api.uasmanagementportal.com/v1
+    description: Main API Server
+
+paths:
+  /uas:
+    get:
+      summary: Get UAS Operations
+      responses:
+        '200':
+          description: A list of UAS operations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UASOperation'
+components:
+  schemas:
+    UASOperation:
+      type: objectS
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+
+

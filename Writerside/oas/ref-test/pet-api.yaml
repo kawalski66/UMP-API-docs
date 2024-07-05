@@ -14,14 +14,19 @@ paths:
       tags:
         - pets
       parameters:
-        - $ref: "#/components/parameters/petId"
+        - name: petId
+          in: path
+          required: true
+          description: The id of the pet to retrieve
+          schema:
+            type: string
       responses:
         '200':
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                - $ref: "./pet.yaml"
+                $ref: "./schemas/pet.yaml#/components/schemas/ErrorModel"
 components:
   parameters:
     petId:
