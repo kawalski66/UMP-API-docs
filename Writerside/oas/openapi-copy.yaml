@@ -83,8 +83,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/aircraft"
       summary: "List aircraft"
-      operationId: "listaircraft"
-      description: "Fetch list of aircraft"
+      operationId: "listaircraft_filterByType, filterByModel, filterByStatus, filterByLocation"
+      description: "### Endpoint: `listAircraft`\n\nThe `listAircraft` endpoint retrieves a list of all unmanned aerial systems (UAS) registered in the UA Portal.\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft`\n- **Method**: `GET`\n- **Description**: Fetches details of all registered UAS, including their identifiers, status, and other relevant information.\n\n**Example Request:**\n\n```http\nGET /api/v1/aircraft HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n```json\n[\n  {\n    \"id\": \"uas123\",\n    \"name\": \"Falcon\",\n    \"status\": \"active\",\n    \"type\": \"quadcopter\",\n    \"last_maintenance\": \"2024-01-15\"\n  },\n  {\n    \"id\": \"uas124\",\n    \"name\": \"Eagle\",\n    \"status\": \"inactive\",\n    \"type\": \"fixed-wing\",\n    \"last_maintenance\": \"2023-12-20\"\n  }\n]\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the list.\n- `401 Unauthorized`: Authentication failed.\n- `429 Too Many Requests`: Rate limit exceeded.\n\n\nThis path supports pagination and uses the following query parameters:\n\n| Query Parameter | Description | Example |\n| --- | --- | --- |\n| 'page' | The page that the user wants to return. | 'page=1' (default: 1)|\n| 'limit' | The number of results per page the user wants to return. | 'limit=10' (default: 10)|\n\nThis creates a URI structure similar to:\n\nPage 1: '/ump/aircraft?page=1&limit=10'\n\nPage 2: '/ump/aircraft?page=2&limit=10'\n\n"
   /ump/aircraft/{aircraft_id}:
     get:
       tags:
@@ -156,7 +156,7 @@ paths:
                 $ref: "#/components/schemas/aircraft"
       summary: "Get an aircraft"
       operationId: "getaircraftById"
-      description: "Fetch aircraft by its ID."
+      description: "### Endpoint: `getAircraftById`\n\nThe `getAircraftById` endpoint retrieves detailed information about a specific unmanned aerial system (UAS) by its identifier.\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft/{id}`\n- **Method**: `GET`\n- **Description**: Fetches detailed information of a UAS, including its status, type, maintenance history, and other relevant details.\n\n**Example Request:**\n\n```http\nGET /api/v1/aircraft/uas123 HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n```json\n{\n  \"aircraft_id\": \"uas123\",\n  \"registration_number\": 5678,\n  \"type\": \"quadcopter\",\n  \"model\": \"X200\",\n  \"manufacturer\": \"DroneTech\",\n  \"status\": \"active\",\n  \"last_maintenance_date\": 1672531200,\n  \"next_maintenance_date\": 1675123200,\n  \"location\": \"Warehouse 5\",\n  \"operational_hours\": 150,\n  \"last_flight\": 1672531300,\n  \"sensors\": [\n    {\n      \"sensor_id\": \"sen123\",\n      \"type\": \"camera\",\n      \"products\": [\n        {\n          \"product_id\": \"prod123\",\n          \"type\": \"image\",\n          \"date_created\": 1672531400,\n          \"date_modified\": 1675123400,\n          \"last_maintenance_date\": 1672531500,\n          \"next_maintenance_date\": 1675123500\n        }\n      ],\n      \"date_created\": 1672531400,\n      \"date_modified\": 1675123400,\n      \"last_maintenance_date\": 1672531500,\n      \"next_maintenance_date\": 1675123500\n    }\n  ],\n  \"transmitters\": [\n    {\n      \"transmitter_id\": \"tx123\",\n      \"bandwidth\": \"20MHz\",\n      \"channel\": \"11\",\n      \"date_created\": 1672531600,\n      \"date_modified\": 1675123600\n    }\n  ],\n  \"transponder\": {\n    \"transponder_id\": \"trans123\",\n    \"calibration\": 0.98,\n    \"mode\": \"A\",\n    \"date_created\": 1672531700,\n    \"date_modified\": 1675123700\n  }\n}\n\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the aircraft details.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     put:
       tags:
         - "aircraft"
@@ -181,20 +181,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/error"
 
-        201:
-          description: "Created"
+        200:
+          description: "Success"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/aircraft"
-      summary: "Replace or create an aircraft"
+      summary: "Replace an aircraft"
       operationId: "replaceaircraftById"
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/aircraft"
-      description: "Creates or replaces all aircraft resource."
+      description: "### Endpoint: `replaceAircraftById`\n\nThe `replaceAircraftById` endpoint updates the details of an existing unmanned aerial system (UAS) by its identifier.\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft/{id}`\n- **Method**: `PUT`\n- **Description**: Replaces the details of a specific UAS with the provided information. This includes updating fields like name, status, type, and other relevant attributes.\n\n**Example Request:**\n\n```http\nPUT /api/v1/aircraft/uas123 HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\n\n{\n  {\n  \"aircraft_id\": \"uas123\",\n  \"registration_number\": 5678,\n  \"type\": \"quadcopter\",\n  \"model\": \"X200\",\n  \"manufacturer\": \"DroneTech\",\n  \"status\": \"active\",\n  \"last_maintenance_date\": 1672531200,\n  \"next_maintenance_date\": 1675123200,\n  \"location\": \"Warehouse 5\",\n  \"operational_hours\": 150,\n  \"last_flight\": 1672531300,\n  \"sensors\": [\n    {\n      \"sensor_id\": \"sen123\",\n      \"type\": \"camera\",\n      \"products\": [\n        {\n          \"product_id\": \"prod123\",\n          \"type\": \"image\",\n          \"date_created\": 1672531400,\n          \"date_modified\": 1675123400,\n          \"last_maintenance_date\": 1672531500,\n          \"next_maintenance_date\": 1675123500\n        }\n      ],\n      \"date_created\": 1672531400,\n      \"date_modified\": 1675123400,\n      \"last_maintenance_date\": 1672531500,\n      \"next_maintenance_date\": 1675123500\n    }\n  ],\n  \"transmitters\": [\n    {\n      \"transmitter_id\": \"tx123\",\n      \"bandwidth\": \"20MHz\",\n      \"channel\": \"11\",\n      \"date_created\": 1672531600,\n      \"date_modified\": 1675123600\n    }\n  ],\n  \"transponder\": {\n    \"transponder_id\": \"trans123\",\n    \"calibration\": 0.98,\n    \"mode\": \"A\",\n    \"date_created\": 1672531700,\n    \"date_modified\": 1675123700\n  }\n}\n\n}\n```\n\n**Example Response:**\n\n```json\n{\n  \"id\": \"uas123\",\n  \"name\": \"Falcon 2.0\",\n  \"status\": \"active\",\n  \"type\": \"quadcopter\",\n  \"last_maintenance\": \"2024-02-20\",\n  \"manufacturer\": \"DroneTech\",\n  \"model\": \"X300\",\n  \"year_built\": 2023\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful update of the aircraft details.\n- `400 Bad Request`: Invalid input data.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     delete:
       tags:
         - "aircraft"
@@ -223,7 +223,7 @@ paths:
           description: "OK"
       summary: "Delete an aircraft"
       operationId: "deleteaircraftById"
-      description: "Deletes aircraft resource by Id."
+      description: "### Endpoint: `deleteAircraftById`\n\nThe `deleteAircraftById` endpoint deletes an existing unmanned aerial system (UAS) by its identifier.\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft/{id}`\n- **Method**: `DELETE`\n- **Description**: Removes a specific UAS from the system based on its unique identifier. This action is irreversible and will permanently delete the UAS and its associated data.\n\n**Example Request:**\n\n```http\nDELETE /api/v1/aircraft/uas123 HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n```json\n{\n  \"message\": \"Aircraft uas123 has been successfully deleted.\"\n}\n```\n\n**Response Codes:**\n\n- `204 OK`: Successful deletion of the aircraft.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft not found.\n- `429 Too Many Requests`: Rate limit exceeded."
   /ump/aircraft/{aircraft_id}/transmitters:
     get:
       tags:
@@ -286,7 +286,7 @@ paths:
                   $ref: "#/components/schemas/transmitter"
       summary: "List aircraft transmitters"
       operationId: "listaircrafttransmitters"
-      description: "List aircraft transmitters "
+      description: "### Endpoint: `listAircraftTransmitters`\n\nThe `listAircraftTransmitters` endpoint retrieves a list of all transmitters associated with unmanned aerial systems (UAS) registered in the UA Portal.\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft/{id}/transmitters`\n- **Method**: `GET`\n- **Description**: Fetches details of all transmitters linked to a specific UAS, including their identifiers, bandwidth, channel, and creation/modification dates.\n\n**Example Request:**\n\n```http\nGET /api/v1/aircraft/uas123/transmitters HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\n```\n\n**Example Response:**\n\n```json\n[\n  {\n    \"transmitter_id\": \"tx123\",\n    \"bandwidth\": \"20MHz\",\n    \"channel\": \"11\",\n    \"date_created\": 1672531200,\n    \"date_modified\": 1675123200\n  },\n  {\n    \"transmitter_id\": \"tx124\",\n    \"bandwidth\": \"40MHz\",\n    \"channel\": \"6\",\n    \"date_created\": 1672531300,\n    \"date_modified\": 1675123300\n  }\n]\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the list of transmitters.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft or transmitters not found\n\n\nThis path supports pagination and uses the following query parameters:\n\n| Query Parameter | Description | Example |\n| --- | --- | --- |\n| 'page' | The page that the user wants to return. | 'page=1' (default: 1)|\n| 'limit' | The number of results per page the user wants to return. | 'limit=10' (default: 10)|\n\nThis creates a URI structure similar to:\n\nPage 1: '/ump/aircraft/{aircraft_id}/transmitters?page=1&limit=10'\n\nPage 2: '/ump/aircraft/{aircraft_id}/transmitters?page=2&limit=10'\n\n"
     put:
       tags:
         - "aircraft"
@@ -329,7 +329,7 @@ paths:
               $ref: "#/components/schemas/transmitter"
       summary: "Replace a transmitter"
       operationId: ""
-      description: "Create or replace transmitter resources."
+      description: "### Endpoint: `replaceTransmitter`\n\nThe `replaceTransmitter` endpoint updates the details of an existing transmitter associated with a specific unmanned aerial system (UAS).\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft/{aircraft_id}/transmitters/{transmitter_id}`\n- **Method**: `PUT`\n- **Description**: Replaces the details of a specific transmitter with the provided information, including bandwidth, channel, and modification dates.\n\n**Example Request:**\n\n```http\nPUT /api/v1/aircraft/uas123/transmitters/tx123 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\nContent-Type: application/json\n\n{\n  \"transmitter_id\": \"tx123\",\n  \"bandwidth\": \"40MHz\",\n  \"channel\": \"7\",\n  \"date_created\": 1672531600,\n  \"date_modified\": 1675123600\n}\n```\n\n**Example Response:**\n\n```json\n{\n  \"transmitter_id\": \"tx123\",\n  \"bandwidth\": \"40MHz\",\n  \"channel\": \"7\",\n  \"date_created\": 1672531600,\n  \"date_modified\": 1675123600\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful update of the transmitter details.\n- `400 Bad Request`: Invalid input data.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft or transmitter not found.\n- `429 Too Many Requests`: Rate limit exceeded."
   /ump/aircraft/{aircraft_id}/transponders/{transponder_id}:
     get:
       tags:
@@ -385,7 +385,7 @@ paths:
                 $ref: "#/components/schemas/transponder"
       summary: "Get an aircraft transponder"
       operationId: "getaircrafttransponderById"
-      description: "Fetch an aircraft transponder."
+      description: "### Endpoint: `getAircraftTransponderById`\n\nThe `getAircraftTransponderById` endpoint retrieves detailed information about a specific transponder associated with an unmanned aerial system (UAS).\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft/{aircraft_id}/transponder/{transponder_id}`\n- **Method**: `GET`\n- **Description**: Fetches details of a specific transponder, including its identifier, calibration, mode, and creation/modification dates.\n\n**Example Request:**\n\n```http\nGET /api/v1/aircraft/uas123/transponder/trans123 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\n```\n\n**Example Response:**\n\n```json\n{\n  \"transponder_id\": \"trans123\",\n  \"calibration\": 0.98,\n  \"mode\": \"A\",\n  \"date_created\": 1672531700,\n  \"date_modified\": 1675123700\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the transponder details.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft or transponder not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     put:
       tags:
         - "aircraft"
@@ -445,7 +445,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/transponder"
-      description: "Create or replace an aircraft transponder"
+      description: "### Endpoint: `replaceAircraftTransponderById`\n\nThe `replaceAircraftTransponderById` endpoint updates the details of an existing transponder associated with a specific unmanned aerial system (UAS).\n\n**Operation Description:**\n\n- **URL**: `/api/v1/aircraft/{aircraft_id}/transponder/{transponder_id}`\n- **Method**: `PUT`\n- **Description**: Replaces the details of a specific transponder with the provided information, including calibration, mode, and modification dates.\n\n**Example Request:**\n\n```http\nPUT /api/v1/aircraft/uas123/transponder/trans123 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\nContent-Type: application/json\n\n{\n  \"transponder_id\": \"trans123\",\n  \"calibration\": 0.99,\n  \"mode\": \"B\",\n  \"date_created\": 1672531700,\n  \"date_modified\": 1675123800\n}\n```\n\n**Example Response:**\n\n```json\n{\n  \"transponder_id\": \"trans123\",\n  \"calibration\": 0.99,\n  \"mode\": \"B\",\n  \"date_created\": 1672531700,\n  \"date_modified\": 1675123800\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful update of the transponder details.\n- `400 Bad Request`: Invalid input data.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft or transponder not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     delete:
       tags:
         - "aircraft"
@@ -476,7 +476,7 @@ paths:
           description: "OK"
       summary: "Delete an aircraft transponder"
       operationId: "deleteaircrafttransponderById"
-      description: "Delete an aircraft transponder resource."
+      description: "### Endpoint: `deleteAircraftTransponderById`\n\nThe `deleteAircraftTransponderById` endpoint deletes an existing transponder associated with a specific unmanned aerial system (UAS).\n\n**Operation Description:**\n\n- **URL**: `/ump/aircraft/{aircraft_id}/transponders/{transponder_id}`\n- **Method**: `DELETE`\n- **Description**: Removes a specific transponder from the system based on its unique identifier. This action is irreversible and will permanently delete the transponder and its associated data.\n\n**Example Request:**\n\n```http\nDELETE /ump/aircraft/uas123/transponders/trans123 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\n```\n\n**Example Response:**\n\n```json\n{\n  \"message\": \"Transponder trans123 has been successfully deleted.\"\n}\n```\n\n**Response Codes:**\n\n- `204 OK`: Successful deletion of the transponder.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Aircraft or transponder not found.\n- `429 Too Many Requests`: Rate limit exceeded."
   /ump/sensors:
     get:
       tags:
@@ -565,7 +565,7 @@ paths:
                   $ref: "#/components/schemas/sensor"
       summary: "List sensors"
       operationId: "listsensors"
-      description: "Fetch sensors"
+      description: "### Endpoint: `listSensors`\n\nThe `listSensors` endpoint retrieves a list of all sensors associated with unmanned aerial systems (UAS) registered in the UA Portal.\n\n**Operation Description:**\n\n- **URL**: `/ump/sensors`\n- **Method**: `GET`\n- **Description**: Fetches details of all sensors, including their identifiers, types, products, and maintenance dates.\n\n**Example Request:**\n\n```http\nGET /ump/sensors HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\n```\n\n**Example Response:**\n\n```json\n[\n  {\n    \"sensor_id\": \"sen123\",\n    \"type\": \"camera\",\n    \"products\": [\n      {\n        \"product_id\": \"prod123\",\n        \"type\": \"image\",\n        \"date_created\": 1672531400,\n        \"date_modified\": 1675123400,\n        \"last_maintenance_date\": 1672531500,\n        \"next_maintenance_date\": 1675123500\n      }\n    ],\n    \"date_created\": 1672531400,\n    \"date_modified\": 1675123400,\n    \"last_maintenance_date\": 1672531500,\n    \"next_maintenance_date\": 1675123500\n  },\n  {\n    \"sensor_id\": \"sen124\",\n    \"type\": \"LIDAR\",\n    \"products\": [\n      {\n        \"product_id\": \"prod124\",\n        \"type\": \"point_cloud\",\n        \"date_created\": 1672531600,\n        \"date_modified\": 1675123600,\n        \"last_maintenance_date\": 1672531700,\n        \"next_maintenance_date\": 1675123700\n      }\n    ],\n    \"date_created\": 1672531600,\n    \"date_modified\": 1675123600,\n    \"last_maintenance_date\": 1672531700,\n    \"next_maintenance_date\": 1675123700\n  }\n]\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the list of sensors.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Sensors not found.\n- `429 Too Many Requests`: Rate limit exceeded.\n\n\nThis path supports pagination and uses the following query parameters:\n\n| Query Parameter | Description | Example |\n| --- | --- | --- |\n| 'page' | The page that the user wants to return. | 'page=1' (default: 1)|\n| 'limit' | The number of results per page the user wants to return. | 'limit=10' (default: 10)|\n\nThis creates a URI structure similar to:\n\nPage 1: '/ump/sensors?page=1&limit=10'\n\nPage 2: '/ump/sensors?page=2&limit=10'\n\n"
   /ump/sensors/{sensor_id}:
     get:
       tags:
@@ -599,7 +599,7 @@ paths:
                 $ref: "#/components/schemas/sensor"
       summary: "Get a sensor"
       operationId: "getsensorById2"
-      description: "Fetch sensor by ID."
+      description: "### Endpoint: `getSensorById`\n\nThe `getSensorById` endpoint retrieves detailed information about a specific sensor associated with an unmanned aerial system (UAS).\n\n**Operation Description:**\n\n- **URL**: `/ump/sensors/{sensor_id}`\n- **Method**: `GET`\n- **Description**: Fetches details of a specific sensor, including its identifier, type, associated products, and maintenance dates.\n\n**Example Request:**\n\n```http\nGET /ump/sensors/sen123 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\n```\n\n**Example Response:**\n\n```json\n{\n  \"sensor_id\": \"sen123\",\n  \"type\": \"camera\",\n  \"products\": [\n    {\n      \"product_id\": \"prod123\",\n      \"type\": \"image\",\n      \"date_created\": 1672531400,\n      \"date_modified\": 1675123400,\n      \"last_maintenance_date\": 1672531500,\n      \"next_maintenance_date\": 1675123500\n    }\n  ],\n  \"date_created\": 1672531400,\n  \"date_modified\": 1675123400,\n  \"last_maintenance_date\": 1672531500,\n  \"next_maintenance_date\": 1675123500\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the sensor details.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Sensor not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     put:
       tags:
         - "sensor"
@@ -646,7 +646,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/sensor"
-      description: "Create or replace a sensor resource."
+      description: "### Endpoint: `getSensorById`\n\nThe `getSensorById` endpoint retrieves detailed information about a specific sensor associated with an unmanned aerial system (UAS).\n\n**Operation Description:**\n\n- **URL**: `/ump/sensors/{sensor_id}`\n- **Method**: `GET`\n- **Description**: Fetches details of a specific sensor, including its identifier, type, associated products, and maintenance dates.\n\n**Example Request:**\n\n```http\nGET /ump/sensors/sen123 HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n```json\n{\n  \"sensor_id\": \"sen123\",\n  \"type\": \"camera\",\n  \"products\": [\n    {\n      \"product_id\": \"prod123\",\n      \"type\": \"image\",\n      \"date_created\": 1672531400,\n      \"date_modified\": 1675123400,\n      \"last_maintenance_date\": 1672531500,\n      \"next_maintenance_date\": 1675123500\n    }\n  ],\n  \"date_created\": 1672531400,\n  \"date_modified\": 1675123400,\n  \"last_maintenance_date\": 1672531500,\n  \"next_maintenance_date\": 1675123500\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the sensor details.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Sensor not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     delete:
       tags:
         - "sensor"
@@ -670,7 +670,7 @@ paths:
           description: "OK"
       summary: "Delete a sensor"
       operationId: "deletesensorById"
-      description: "Delete sensor resources by Id."
+      description: "### Endpoint: `deleteSensorById`\n\nThe `deleteSensorById` endpoint deletes an existing sensor associated with a specific unmanned aerial system (UAS).\n\n**Operation Description:**\n\n- **URL**: `/ump/sensors/{sensor_id}`\n- **Method**: `DELETE`\n- **Description**: Removes a specific sensor from the system based on its unique identifier. This action is irreversible and will permanently delete the sensor and its associated data.\n\n**Example Request:**\n\n```http\nDELETE /ump/sensors/sen123 HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n- **Response Code**: `204 No Content`\n\n**Response Codes:**\n\n- `204 No Content`: Successful deletion of the sensor.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Sensor not found.\n- `429 Too Many Requests`: Rate limit exceeded."
   /ump/products:
     get:
       tags:
@@ -780,7 +780,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/product"
-      description: "Fetch list of product."
+      description: "### Endpoint: `createProduct`\n\nThe `createProduct` endpoint allows for the creation of a new product generated by sensors associated with unmanned aerial systems (UAS) registered in the UA Portal.\n\n**Operation Description:**\n\n- **URL**: `/ump/products`\n- **Method**: `POST`\n- **Description**: Creates a new product with the provided information, including type, and sets the creation and modification dates.\n\n**Example Request:**\n\n```http\nPOST /ump/products HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\n\n{\n  \"type\": \"image\",\n  \"date_created\": 1672531400,\n  \"date_modified\": 1672531400\n}\n```\n\n**Example Response:**\n\n```json\n{\n  \"product_id\": \"prod125\",\n  \"type\": \"image\",\n  \"date_created\": 1672531400,\n  \"date_modified\": 1672531400\n}\n```\n\n**Response Codes:**\n\n- `201 Created`: Successful creation of the product.\n- `400 Bad Request`: Invalid input data.\n- `401 Unauthorized`: Authentication failed.\n- `429 Too Many Requests`: Rate limit exceeded."
   /ump/products/{product_id}:
     get:
       tags:
@@ -795,7 +795,7 @@ paths:
           required: true
         - in: "query"
           name: "type"
-          description: "Enumeration type of UA - Scan Eagle, Heron, Raven"
+          description: "Enumeriation type of UA - Scan Eagle, Heron, ,Raven"
           schema:
             type: "string"
             enum:
@@ -837,7 +837,7 @@ paths:
                 $ref: "#/components/schemas/product"
       summary: "Get a product"
       operationId: "getproductById"
-      description: "Fetch product resource by Id."
+      description: "### Endpoint: `getProductById`\n\nThe `getProductById` endpoint retrieves detailed information about a specific product generated by sensors associated with unmanned aerial systems (UAS).\n\n**Operation Description:**\n\n- **URL**: `/ump/products/{product_id}`\n- **Method**: `GET`\n- **Description**: Fetches details of a specific product, including its identifier, type, and creation/modification dates.\n\n**Example Request:**\n\n```http\nGET /ump/products/prod123 HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n```json\n{\n  \"product_id\": \"prod123\",\n  \"type\": \"image\",\n  \"date_created\": 1672531400,\n  \"date_modified\": 1675123400\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the product details.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Product not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     put:
       tags:
         - "product"
@@ -870,7 +870,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/product"
-      description: "Create or replace product resource."
+      description: "### Endpoint: `replaceProductById`\n\nThe `replaceProductById` endpoint updates the details of an existing product generated by sensors associated with unmanned aerial systems (UAS).\n\n**Operation Description:**\n\n- **URL**: `/ump/products/{product_id}`\n- **Method**: `PUT`\n- **Description**: Replaces the details of a specific product with the provided information, including type, and sets the modification date.\n\n**Example Request:**\n\n```http\nPUT /ump/products/prod123 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\nContent-Type: application/json\n\n{\n  \"product_id\": \"prod123\",\n  \"type\": \"point_cloud\",\n  \"date_created\": 1672531400,\n  \"date_modified\": 1675123600\n}\n```\n\n**Example Response:**\n\n```json\n{\n  \"product_id\": \"prod123\",\n  \"type\": \"point_cloud\",\n  \"date_created\": 1672531400,\n  \"date_modified\": 1675123600\n}\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful update of the product details.\n- `400 Bad Request`: Invalid input data.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Product not found.\n- `429 Too Many Requests`: Rate limit exceeded."
     delete:
       tags:
         - "product"
@@ -894,8 +894,16 @@ paths:
           description: "OK"
       summary: "Delete a product"
       operationId: "deleteproductById"
-      description: "Delete product resource by Id."
+      description: "### Endpoint: `deleteProductById`\n\nThe `deleteProductById` endpoint deletes an existing product generated by sensors associated with unmanned aerial systems (UAS).\n\n**Operation Description:**\n\n- **URL**: `/ump/products/{product_id}`\n- **Method**: `DELETE`\n- **Description**: Removes a specific product from the system based on its unique identifier. This action is irreversible and will permanently delete the product and its associated data.\n\n**Example Request:**\n\n```http\nDELETE /ump/products/prod123 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer your_access_token\n```\n\n**Example Response:**\n\n- **Response Code**: `204 No Content`\n\n**Response Codes:**\n\n- `204 No Content`: Successful deletion of the product.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Product not found.\n- `429 Too Many Requests`: Rate limit exceeded."
 components:
+  parameters:
+    protective_marking:
+      in: "header"
+      name: "X-Protective-Marking"
+      schema:
+        type: "string"
+      x-example: "X-Protective-Marking: VER=<ver>, NS=gov.au, SEC=<securityClassification>"
+      description: "Transmission of any payload, request or response, containing data classified as having a high business impact level or above SHOULD apply by an ‘x-protective-marking’ HTTP header.\n-\tAn ‘x-protective-marking’ HTTP header MUST be used to apply appropriate protective marking to Commonwealth information classified as having a high business impact level or above (classification of ‘PROTECTED’), and SHOULD be applied to Commonwealth information classified as having a medium business impact level."
   schemas:
     error:
       type: "object"
