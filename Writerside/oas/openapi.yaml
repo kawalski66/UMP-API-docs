@@ -11,6 +11,15 @@ paths:
     get:
       tags:
         - "aircraft"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/aircraft"
       parameters:
         - in: "query"
           name: "type"
@@ -67,21 +76,6 @@ paths:
             type: "number"
           description: "The number of results per page the user wants to return."
           required: false
-      responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-        200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                type: "array"
-                items:
-                  $ref: "#/components/schemas/aircraft"
       summary: "List aircraft"
       operationId: "listaircraft"
       description: "Fetch list of aircraft"
@@ -141,13 +135,6 @@ paths:
           schema:
             type: "number"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -174,13 +161,6 @@ paths:
           schema:
             type: "integer"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         201:
           description: "Created"
           content:
@@ -212,13 +192,6 @@ paths:
           schema:
             type: "integer"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         204:
           description: "OK"
       summary: "Delete an aircraft"
@@ -269,13 +242,6 @@ paths:
           description: "The number of results per page the user wants to return."
           required: false
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -309,13 +275,6 @@ paths:
           schema:
             type: "number"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -370,13 +329,6 @@ paths:
           schema:
             type: "number"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -425,13 +377,6 @@ paths:
           schema:
             type: "number"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -465,13 +410,6 @@ paths:
           in: "path"
           required: true
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         204:
           description: "OK"
       summary: "Delete an aircraft transponder"
@@ -548,13 +486,6 @@ paths:
           description: "The number of results per page the user wants to return."
           required: false
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -584,13 +515,6 @@ paths:
           schema:
             type: "string"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -626,13 +550,6 @@ paths:
           schema:
             type: "string"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -659,13 +576,6 @@ paths:
           in: "path"
           required: true
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         204:
           description: "OK"
       summary: "Delete a sensor"
@@ -737,13 +647,6 @@ paths:
           description: "The number of results per page the user wants to return."
           required: false
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -760,13 +663,6 @@ paths:
         - "product"
       parameters: []
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         201:
           description: "Success"
           content:
@@ -822,13 +718,6 @@ paths:
               - "MWIR"
               - "SWIR"
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -850,13 +739,6 @@ paths:
           in: "path"
           required: true
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         200:
           description: "Success"
           content:
@@ -883,13 +765,6 @@ paths:
           in: "path"
           required: true
       responses:
-        default:
-          description: "Unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error"
-
         204:
           description: "OK"
       summary: "Delete a product"

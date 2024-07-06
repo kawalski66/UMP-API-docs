@@ -26,6 +26,8 @@ components:
           format: int32
         message:
           type: string
+        testAttribute:
+          type: string
 
   ####################
   # Common parameters
