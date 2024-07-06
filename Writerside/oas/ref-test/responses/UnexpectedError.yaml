@@ -1,0 +1,25 @@
+type: "object"
+properties:
+  status:
+    type: "integer"
+    format: "int32"
+    description: "HTTP status code of the error"
+    example: 400
+  message:
+    type: "string"
+    description: "Error message"
+    example: "Invalid request parameters"
+  details:
+    type: "array"
+    description: "Detailed information about the error"
+    items:
+      type: "object"
+      properties:
+        field:
+          type: "string"
+          description: "Field where the error occurred"
+          example: "username"
+        issue:
+          type: "string"
+          description: "Description of the issue"
+          example: "Username already exists"

@@ -1,0 +1,12 @@
+components:
+  schemas:
+    Category:
+      $ref: "schemas.yaml#/components/schemas/Category:"
+    User:
+      $ref: "schemas.yaml#/components/schemas/User:"
+    Tag:
+      $ref: "schemas.yaml#/components/schemas/Tag:"
+    Pet:
+      $ref: "schemas.yaml#/components/schemas/Pet:"
+    ApiResponse:
+      $ref: "schemas.yaml#/components/schemas/ApiResponse:"
