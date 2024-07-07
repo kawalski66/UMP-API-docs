@@ -1,5 +1,5 @@
 responses:
-  Success:
+  SuccessAircraft:
     description: "Success"
     content:
       application/json:
@@ -7,3 +7,10 @@ responses:
           type: "array"
           items:
             $ref: "../schemas/schemas.yaml#/schemas/aircraft"
+
+  SuccessAircraftId:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/aircraft"

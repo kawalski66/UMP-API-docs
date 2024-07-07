@@ -4,8 +4,8 @@ paths:
       tags:
         - "aircraft"
       responses:
-        200:
-          $ref: "../responses/responses.yaml#/responses/Success"
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessAircraft"
       parameters:
         - $ref: "../parameters/parameters.yaml#/parameters/typeUaParam"
         - $ref: "../parameters/parameters.yaml#/parameters/modelUaParam"

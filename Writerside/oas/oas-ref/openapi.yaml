@@ -65,12 +65,8 @@ paths:
           schema:
             type: "number"
       responses:
-        200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/aircraft"
+        "200":
+          $ref: "#/components/responses/SuccessAircraftId"
       summary: "Get an aircraft"
       operationId: "getaircraftById"
       description: "Fetch aircraft by its ID."
@@ -734,8 +730,10 @@ components:
     limitUaParam:
       $ref: "./parameters/parameters.yaml#/parameters/limitUaParam"
   responses:
-    Success:
-      $ref: "./responses/responses.yaml#/responses/Success"
+    SuccessAircraft:
+      $ref: "./responses/responses.yaml#/responses/SuccessAircraft"
+    SuccessAircraftId:
+      $ref: "./responses/responses.yaml#/responses/SuccessAircraftId"
   securitySchemes: {}
 servers:
   - url: "/ump/v1/"
