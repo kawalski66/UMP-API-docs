@@ -101,3 +101,53 @@ paths:
       summary: "Replace a transmitter"
       operationId: ""
       description: "Create or replace transmitter resources."
+
+  aircraftIdTransponder:
+    parameters:
+      - $ref: "../parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
+    get:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/transponderParameters.yaml#/parameters/transponderIdParam"
+        - $ref: "../parameters/transponderParameters.yaml#/parameters/modeTransponderParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateCreatedUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateModifiedUaParam"
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessTransponder"
+      summary: "Get an aircraft transponder"
+      operationId: "getaircrafttransponderById"
+      description: "Fetch an aircraft transponder."
+    put:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/transponderParameters.yaml#/parameters/transponderIdParam"
+        - $ref: "../parameters/transponderParameters.yaml#/parameters/modeTransponderParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateCreatedUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateModifiedUaParam"
+
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessTransponder"
+      summary: "Replace an aircraft transponder"
+      operationId: "replaceaircrafttransponderById"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/requestBodies.yaml#/requestBodies/transponderBody"
+      description: "Create or replace an aircraft transponder"
+    delete:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/transponderParameters.yaml#/parameters/transponderIdParam"
+
+      responses:
+        "204":
+          $ref: "../responses/responses.yaml#/responses/Deleted"
+      summary: "Delete an aircraft transponder"
+      operationId: "deleteaircrafttransponderById"
+      description: "Delete an aircraft transponder resource."

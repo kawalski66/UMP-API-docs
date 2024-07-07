@@ -40,3 +40,10 @@ responses:
       application/json:
         schema:
           $ref: "../schemas/schemas.yaml#/schemas/transmitter"
+
+  SuccessTransponder:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/schemas.yaml#/schemas/transponder"

@@ -12,3 +12,11 @@ requestBodies:
       application/json:
         schema:
           $ref: "./schemas.yaml#/schemas/transmitter"
+
+  transponderBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas.yaml#/schemas/transponder"
+      description: "Create or replace an aircraft transponder"

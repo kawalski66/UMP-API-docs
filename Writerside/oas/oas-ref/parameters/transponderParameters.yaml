@@ -1,0 +1,22 @@
+parameters:
+  transponderIdParam:
+    name: "transponder_id"
+    description: "Unique id of transponder entity"
+    schema:
+      type: "string"
+      format: "uuid"
+    in: "path"
+    required: true
+
+  modeTransponderParam:
+    in: "query"
+    name: "mode"
+    description: "Operational mode of SSR."
+    schema:
+      type: "string"
+      enum:
+        - "Mode A"
+        - "Mode B"
+        - "Mode C"
+        - "Mode S"
+
