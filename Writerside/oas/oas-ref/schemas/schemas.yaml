@@ -65,15 +65,15 @@ schemas:
       sensors:
         type: "array"
         items:
-          $ref: "#/components/schemas/sensor"
+          $ref: "#/schemas/sensor"
         description: "List of sensor payloads attached to the aircraft, each containing:"
       transmitters:
         type: "array"
         items:
-          $ref: "#/components/schemas/transmitter"
+          $ref: "#/schemas/transmitter"
         description: "List of mounted transmitters"
       transponder:
-        $ref: "#/components/schemas/transponder"
+        $ref: "#/schemas/transponder"
         description: "Mounted transponder"
       date_created:
         type: "number"
@@ -101,7 +101,7 @@ schemas:
       products:
         type: "array"
         items:
-          $ref: "#/components/schemas/product"
+          $ref: "#/schemas/product"
         description: "List of products related to sensor."
       last_maintenance_date:
         type: "number"
