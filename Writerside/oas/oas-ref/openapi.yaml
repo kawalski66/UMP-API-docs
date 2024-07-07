@@ -14,56 +14,16 @@ paths:
       tags:
         - "aircraft"
       parameters:
-        - name: "aircraft_id"
-          description: "Unique identifier for the aircraft."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-        - in: "query"
-          name: "registration_number"
-          description: "The unique registration number of the aircraft."
-          schema:
-            type: "integer"
-        - in: "query"
-          name: "type"
-          description: "Type of UA, fixed wing, rotary wing, "
-          schema:
-            type: "string"
-            enum:
-              - "f/w"
-              - "r/w"
-        - in: "query"
-          name: "model"
-          description: "The model name of the aircraft."
-          schema:
-            type: "string"
-        - in: "query"
-          name: "status"
-          description: "Current status of the aircraft (e.g., operational, under maintenance)."
-          schema:
-            type: "string"
-            enum:
-              - "green"
-              - "yellow"
-              - "red"
-              - "orange"
-        - in: "query"
-          name: "location"
-          description: "Current location of the aircraft."
-          schema:
-            type: "string"
-        - in: "query"
-          name: "date_created"
-          description: "Date in long unix epoch of creations."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "date_modified"
-          description: "Date in long unix epoch of modification"
-          schema:
-            type: "number"
+        - $ref: "#/components/parameters/aircraftIdParam"
+        - $ref: "#/components/parameters/typeUaParam"
+        - $ref: "#/components/parameters/modelUaParam"
+        - $ref: "#/components/parameters/statusUaParam"
+        - $ref: "#/components/parameters/lastFlightUaParam"
+        - $ref: "#/components/parameters/registrationNumUaParam"
+        - $ref: "#/components/parameters/dateCreatedUaParam"
+        - $ref: "#/components/parameters/dateModifiedUaParam"
+        - $ref: "#/components/parameters/locationUaParam"
+
       responses:
         "200":
           $ref: "#/components/responses/SuccessAircraftId"
@@ -711,6 +671,8 @@ components:
     transponder:
       $ref: "./schemas/schemas.yaml#/schemas/transmitter"
   parameters:
+    aircraftIdParam:
+      $ref: "./parameters/parameters.yaml#/parameters/aircraftIdParam"
     typeUaParam:
       $ref: "./parameters/parameters.yaml#/parameters/typeUaParam"
     modelUaParam:
@@ -729,6 +691,9 @@ components:
       $ref: "./parameters/parameters.yaml#/parameters/pageUaParam"
     limitUaParam:
       $ref: "./parameters/parameters.yaml#/parameters/limitUaParam"
+    locationUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/locationUaParam"
+
   responses:
     SuccessAircraft:
       $ref: "./responses/responses.yaml#/responses/SuccessAircraft"
