@@ -8,25 +8,7 @@ info:
   title: "UA System API"
 paths:
   /ump/aircraft:
-    get:
-      tags:
-        - "aircraft"
-      responses:
-        200:
-          $ref: "#/components/responses/Success"
-      parameters:
-        - $ref: "#/components/parameters/typeUaParam"
-        - $ref: "#/components/parameters/modelUaParam"
-        - $ref: "#/components/parameters/statusUaParam"
-        - $ref: "#/components/parameters/lastFlightUaParam"
-        - $ref: "#/components/parameters/registrationNumUaParam"
-        - $ref: "#/components/parameters/dateCreatedUaParam"
-        - $ref: "#/components/parameters/dateModifiedUaParam"
-        - $ref: "#/components/parameters/pageUaParam"
-        - $ref: "#/components/parameters/limitUaParam"
-      summary: "List aircraft"
-      operationId: "listaircraft"
-      description: "Fetch list of aircraft"
+    $ref: "./paths/paths.yaml#/paths/listAircraft"
   /ump/aircraft/{aircraft_id}:
     get:
       tags:

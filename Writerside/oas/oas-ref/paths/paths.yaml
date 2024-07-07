@@ -1,0 +1,21 @@
+paths:
+  listAircraft:
+    get:
+      tags:
+        - "aircraft"
+      responses:
+        200:
+          $ref: "../responses/responses.yaml#/responses/Success"
+      parameters:
+        - $ref: "../parameters/parameters.yaml#/parameters/typeUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/modelUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/statusUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/lastFlightUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/dateCreatedUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/dateModifiedUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/pageUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/limitUaParam"
+      summary: "List aircraft"
+      operationId: "listaircraft"
+      description: "Fetch list of aircraft"
