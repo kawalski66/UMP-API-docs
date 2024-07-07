@@ -1,3 +1,3 @@
 # Aircraft
 
-<api-doc openapi-path="../oas/oas-ua.yaml" tag="testClass"></api-doc>
+<api-doc openapi-path="../oas/output.yaml" tag="aircraft"/>

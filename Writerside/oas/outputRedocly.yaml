@@ -1,0 +1,803 @@
+openapi: 3.0.0
+info:
+  description: |-
+    # UA System API - Overview
+
+    ## Introduction
+
+    This document serves as a comprehensive guide to help users interact with the various methods of the UA System API. The UA System API is designed to facilitate the management and operation of unmanned aerial systems (UAS) by providing access to essential data and functionalities.
+
+    ## Getting Started
+
+    To get started with the UA System API, follow these steps to ensure a smooth integration and usage experience.
+
+    ### Using The API
+
+    The UA System API allows you to access and manage data related to unmanned aerial systems. This includes functionalities such as retrieving UAS data, managing equipment, and overseeing operational tasks. The API is built using RESTful web services, ensuring it is robust, scalable, and easy to use.
+
+    ## Uptime & Planned Outages
+
+    The UA System API aims to maintain high availability and reliability. Any planned outages or maintenance windows will be communicated in advance to ensure minimal disruption. Real-time status updates and planned maintenance schedules can be found on our status page.
+
+    ### Rate Limits
+
+    To ensure fair usage and system stability, the UA System API enforces rate limits on the number of requests a user can make. The standard rate limit is 70 requests per minute. If this limit is exceeded, users will receive a `429 Too Many Requests` response, with a `Retry-After` header indicating when they can make the next request.
+
+    ## Contact Us
+
+    For any questions, support requests, or feedback regarding the UA System API, please contact us through the following channels:
+
+    - **Email**: support@example.com
+    - **Phone**: +1-800-555-1234
+    - **Support Portal**: [Contact Support](https://example.com/support)
+
+    We are committed to providing timely and helpful assistance to ensure a positive experience with the UA System API.
+  contact:
+    email: jakub.manak@unicornuniversity.net
+    url: https://example.com/contact
+  version: 0.9.0
+  title: UA System API
+servers:
+  - url: /ump.prod/v1
+    description: Production server (uses live data)
+  - url: /ump.dev/v1
+    description: Devel server (uses live data)
+tags:
+  - name: aircraft
+    description: UA operations.
+  - name: transmitter
+    description: Transmitter operations related to UA.
+  - name: transponder
+    description: Transponder operations related to UA.
+  - name: sensor
+    description: Sensor operations.
+  - name: product
+    description: Product operations.
+paths:
+  /ump/aircraft:
+    get:
+      tags:
+        - aircraft
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessAircraft'
+      parameters:
+        - $ref: '#/components/parameters/typeUaParam'
+        - $ref: '#/components/parameters/modelUaParam'
+        - $ref: '#/components/parameters/statusUaParam'
+        - $ref: '#/components/parameters/lastFlightUaParam'
+        - $ref: '#/components/parameters/registrationNumUaParam'
+        - $ref: '#/components/parameters/dateCreatedUaParam'
+        - $ref: '#/components/parameters/dateModifiedUaParam'
+        - $ref: '#/components/parameters/pageUaParam'
+        - $ref: '#/components/parameters/limitUaParam'
+      summary: List aircraft
+      operationId: listaircraft
+      description: Fetch list of aircraft
+  /ump/aircraft/{aircraft_id}:
+    get:
+      tags:
+        - aircraft
+      parameters:
+        - $ref: '#/components/parameters/aircraftIdParam'
+        - $ref: '#/components/parameters/typeUaParam'
+        - $ref: '#/components/parameters/modelUaParam'
+        - $ref: '#/components/parameters/statusUaParam'
+        - $ref: '#/components/parameters/lastFlightUaParam'
+        - $ref: '#/components/parameters/registrationNumUaParam'
+        - $ref: '#/components/parameters/dateCreatedUaParam'
+        - $ref: '#/components/parameters/dateModifiedUaParam'
+        - $ref: '#/components/parameters/locationUaParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessAircraftId'
+      summary: Get an aircraft
+      operationId: getaircraftById
+      description: Fetch aircraft by its ID.
+    put:
+      tags:
+        - aircraft
+      parameters:
+        - $ref: '#/components/parameters/aircraftIdParam'
+        - $ref: '#/components/parameters/registrationNumUaParam'
+      responses:
+        '201':
+          $ref: '#/components/responses/SuccessAircraftId'
+      summary: Replace or create an aircraft
+      operationId: replaceaircraftById
+      requestBody:
+        $ref: '#/components/requestBodies/aircraftIdBody'
+      description: Creates or replaces all aircraft resource.
+    delete:
+      tags:
+        - aircraft
+      parameters:
+        - $ref: '#/components/parameters/aircraftIdParam'
+        - $ref: '#/components/parameters/registrationNumUaParam'
+      responses:
+        '204':
+          $ref: '#/components/responses/Deleted'
+      summary: Delete an aircraft
+      operationId: deleteaircraftById
+      description: Deletes aircraft resource by Id.
+  /ump/aircraft/{aircraft_id}/transmitters:
+    get:
+      tags:
+        - transmitter
+      parameters:
+        - $ref: '#/components/parameters/bandwidthPara'
+        - $ref: '#/components/parameters/channelParam'
+        - $ref: '#/components/parameters/aircraftIdParam'
+        - $ref: '#/components/parameters/pageUaParam'
+        - $ref: '#/components/parameters/limitUaParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessTransmitters'
+      summary: List aircraft transmitters
+      operationId: listaircrafttransmitters
+      description: 'List aircraft transmitters '
+    put:
+      tags:
+        - transmitter
+      parameters:
+        - $ref: '#/components/parameters/aircraftIdParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessTransmitter'
+      requestBody:
+        $ref: '#/components/requestBodies/transmitterBody'
+      summary: Replace a transmitter
+      operationId: ''
+      description: Create or replace transmitter resources.
+  /ump/aircraft/{aircraft_id}/transponders/{transponder_id}:
+    parameters:
+      - $ref: '#/components/parameters/aircraftIdParam'
+    get:
+      tags:
+        - transponder
+      parameters:
+        - $ref: '#/components/parameters/transponderIdParam'
+        - $ref: '#/components/parameters/modeTransponderParam'
+        - $ref: '#/components/parameters/dateCreatedUaParam'
+        - $ref: '#/components/parameters/dateModifiedUaParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessTransponder'
+      summary: Get an aircraft transponder
+      operationId: getaircrafttransponderById
+      description: Fetch an aircraft transponder.
+    put:
+      tags:
+        - transponder
+      parameters:
+        - $ref: '#/components/parameters/transponderIdParam'
+        - $ref: '#/components/parameters/modeTransponderParam'
+        - $ref: '#/components/parameters/dateCreatedUaParam'
+        - $ref: '#/components/parameters/dateModifiedUaParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessTransponder'
+      summary: Replace an aircraft transponder
+      operationId: replaceaircrafttransponderById
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transponderBody'
+      description: Create or replace an aircraft transponder
+    delete:
+      tags:
+        - transponder
+      parameters:
+        - $ref: '#/components/parameters/transponderIdParam'
+      responses:
+        '204':
+          $ref: '#/components/responses/Deleted'
+      summary: Delete an aircraft transponder
+      operationId: deleteaircrafttransponderById
+      description: Delete an aircraft transponder resource.
+  /ump/sensors:
+    get:
+      tags:
+        - sensor
+      parameters:
+        - $ref: '#/components/parameters/typeSensorParam'
+        - $ref: '#/components/parameters/lastMaintenanceDateSensor'
+        - $ref: '#/components/parameters/nextMaintenanceDateSensor'
+        - $ref: '#/components/parameters/creationDateSensorParam'
+        - $ref: '#/components/parameters/modificationDateSensorParam'
+        - $ref: '#/components/parameters/productIdParam'
+        - $ref: '#/components/parameters/typeProductParam'
+        - $ref: '#/components/parameters/creationDateProductParam'
+        - $ref: '#/components/parameters/modificationDateProductParam'
+        - $ref: '#/components/parameters/pageUaParam'
+        - $ref: '#/components/parameters/limitUaParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessSensors'
+      summary: List sensors
+      operationId: listsensors
+      description: Fetch sensors
+  /ump/sensors/{sensor_id}:
+    get:
+      tags:
+        - sensor
+      parameters:
+        - $ref: '#/components/parameters/sensorId'
+        - $ref: '#/components/parameters/productIdParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessSensor'
+      summary: Get a sensor
+      operationId: getsensorById2
+      description: Fetch sensor by ID.
+    put:
+      tags:
+        - sensor
+      parameters:
+        - $ref: '#/components/parameters/sensorId'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessSensor'
+      summary: Replace a sensor
+      operationId: replacesensorById
+      requestBody:
+        $ref: '#/components/requestBodies/sensorBody'
+      description: Create or replace a sensor resource.
+    delete:
+      tags:
+        - sensor
+      parameters:
+        - $ref: '#/components/parameters/sensorId'
+      responses:
+        '204':
+          $ref: '#/components/responses/Deleted'
+      summary: Delete a sensor
+      operationId: deletesensorById
+      description: Delete sensor resources by Id.
+  /ump/products:
+    get:
+      tags:
+        - product
+      parameters:
+        - $ref: '#/components/parameters/typeProductParam'
+        - $ref: '#/components/parameters/creationDateProductParam'
+        - $ref: '#/components/parameters/modificationDateProductParam'
+        - $ref: '#/components/parameters/pageUaParam'
+        - $ref: '#/components/parameters/limitUaParam'
+        - $ref: '#/components/parameters/typeSensorParam'
+        - $ref: '#/components/parameters/lastMaintenanceDateSensor'
+        - $ref: '#/components/parameters/nextMaintenanceDateSensor'
+        - $ref: '#/components/parameters/aircraftIdParam'
+        - $ref: '#/components/parameters/registrationNumUaParam'
+        - $ref: '#/components/parameters/lastFlightUaParam'
+        - $ref: '#/components/parameters/pageUaParam'
+        - $ref: '#/components/parameters/limitUaParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessProducts'
+      summary: List products
+      operationId: listproducts
+      description: List products
+    post:
+      tags:
+        - product
+      responses:
+        '201':
+          $ref: '#/components/responses/SuccessProduct'
+      summary: 'Create or replace new product '
+      operationId: createproduct
+      requestBody:
+        $ref: '#/components/requestBodies/productBody'
+  /ump/products/{product_id}:
+    get:
+      tags:
+        - product
+      parameters:
+        - $ref: '#/components/parameters/productIdParam'
+        - $ref: '#/components/parameters/typeProductParam'
+        - $ref: '#/components/parameters/creationDateProductParam'
+        - $ref: '#/components/parameters/modificationDateProductParam'
+        - $ref: '#/components/parameters/typeSensorParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessProduct'
+      summary: Get a product
+      operationId: getproductById
+      description: Fetch product resource by Id.
+    put:
+      tags:
+        - product
+      parameters:
+        - $ref: '#/components/parameters/productIdParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessProduct'
+      summary: Replace or create a product
+      operationId: replaceproductById
+      requestBody:
+        $ref: '#/components/requestBodies/productBody'
+      description: Create or replace product resource.
+    delete:
+      tags:
+        - product
+      parameters:
+        - $ref: '#/components/parameters/productIdParam'
+      responses:
+        '204':
+          $ref: '#/components/responses/Deleted'
+      summary: Delete a product
+      operationId: deleteproductById
+      description: Delete product resource by Id.
+components:
+  schemas:
+    error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        details:
+          type: string
+          description: Additional details about the error
+          example: The 'email' field is required.
+    aircraft:
+      type: object
+      additionalProperties: false
+      properties:
+        aircraft_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the aircraft.
+        registration_number:
+          type: integer
+          description: The unique registration number of the aircraft.
+        type:
+          type: string
+          enum:
+            - f/w
+            - r/w
+          example: f/w
+          description: 'Type of UA, fixed wing, rotary wing, '
+        model:
+          type: string
+          description: The model name of the aircraft.
+        manufacturer:
+          type: string
+          description: The manufacturer of the aircraft.
+        status:
+          type: string
+          enum:
+            - green
+            - yellow
+            - red
+            - orange
+          example: green
+          description: Current status of the aircraft (e.g., operational, under maintenance).
+        last_maintenance_date:
+          type: number
+          description: The Date in long unix epoch when the aircraft last underwent maintenance.
+        next_maintenance_date:
+          type: number
+          description: The scheduled Date in long unix epoch for the next maintenance.
+        location:
+          type: string
+          description: Current location of the aircraft.
+        operational_hours:
+          type: number
+          description: Total operational hours logged by the aircraft.
+        last_flight:
+          type: number
+          description: Date in long unix epoch.
+        sensors:
+          type: array
+          items:
+            $ref: '#/components/schemas/sensor'
+          description: 'List of sensor payloads attached to the aircraft, each containing:'
+        transmitters:
+          type: array
+          items:
+            $ref: '#/components/schemas/transmitter'
+          description: List of mounted transmitters
+        transponder:
+          $ref: '#/components/schemas/schemas-transponder'
+          description: Mounted transponder
+        date_created:
+          type: number
+          description: Date in long unix epoch of creations.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification
+      description: UA which can be track a maintenance
+    sensor:
+      type: object
+      additionalProperties: false
+      properties:
+        sensor_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the sensor.
+        type:
+          type: string
+          enum:
+            - EO
+            - MWIR
+            - SWIR
+          example: EO
+          description: Type of sensor - EO, MWIR, SWIR
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/product'
+          description: List of products related to sensor.
+        last_maintenance_date:
+          type: number
+          description: The Date in long unix epoch when the aircraft last underwent maintenance.
+        next_maintenance_date:
+          type: number
+          description: The scheduled Date in long unix epoch for the next maintenance.
+        date_created:
+          type: number
+          description: Date in long unix epoch of creations.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification
+      description: Type of sensors what are able to be mounted to UA
+    product:
+      type: object
+      additionalProperties: false
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          description: Unique id of product
+        type:
+          type: string
+          enum:
+            - photo
+            - video
+            - LIDAR
+          example: photo
+          description: Enumeration type of UA - Scan Eagle, Heron, ,Raven
+        date_created:
+          type: number
+          description: Date in long unix epoch of creations.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification
+      description: Type of sensors what are able to be mounted to UA
+    transmitter:
+      type: object
+      additionalProperties: false
+      properties:
+        transmitter_id:
+          type: string
+          format: uuid
+          description: Unique id of transmitter entity
+        bandwidth:
+          type: string
+          description: Bandwidth
+        channel:
+          type: string
+          description: Channel
+        date_created:
+          type: number
+          description: Date in long unix epoch of creations.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification.
+      description: Transmitter entity
+    transponder:
+      $ref: '#/components/schemas/transmitter'
+    schemas-transponder:
+      type: object
+      additionalProperties: false
+      properties:
+        transponder_id:
+          type: string
+          format: uuid
+          description: Unique id of transponder entity
+        calibration:
+          type: number
+          description: Date of calibration in unix epoch.
+        mode:
+          type: string
+          enum:
+            - Mode A
+            - Mode B
+            - Mode C
+            - Mode S
+          example: Mode A
+          description: Operational mode of SSR.
+        date_created:
+          type: number
+          description: Date in long unix epoch of creations.
+        date_modified:
+          type: number
+          description: Date in long unix epoch of modification.
+      description: Transponder Entity
+    transponderBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ./schemas.yaml#/schemas/transponder
+        description: Create or replace an aircraft transponder
+  requestBodies:
+    aircraftIdBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/aircraft'
+    transmitterBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/transmitter'
+    sensorBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/sensor'
+        description: Create or replace a sensor resource.
+    productBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/product'
+        description: Fetch list of product.
+  securitySchemes: {}
+  parameters:
+    typeUaParam:
+      in: query
+      name: type
+      description: 'Type of UA, fixed wing, rotary wing, '
+      schema:
+        type: string
+        enum:
+          - f/w
+          - r/w
+    modelUaParam:
+      in: query
+      name: model
+      description: The model name of the aircraft.
+      schema:
+        type: string
+    statusUaParam:
+      in: query
+      name: status
+      description: Current status of the aircraft (e.g., operational, under maintenance).
+      schema:
+        type: string
+        enum:
+          - green
+          - yellow
+          - red
+          - orange
+    lastFlightUaParam:
+      in: query
+      name: last_flight
+      description: Date in long unix epoch.
+      schema:
+        type: number
+    registrationNumUaParam:
+      in: query
+      name: registration_number
+      description: The unique registration number of the aircraft.
+      schema:
+        type: integer
+    dateCreatedUaParam:
+      in: query
+      name: date_created
+      description: Date in long unix epoch of creations.
+      schema:
+        type: number
+    dateModifiedUaParam:
+      in: query
+      name: date_modified
+      description: Date in long unix epoch of modification
+      schema:
+        type: number
+    pageUaParam:
+      in: query
+      name: page
+      schema:
+        type: number
+      description: The page that the user wants to return.
+      required: false
+    limitUaParam:
+      in: query
+      name: limit
+      schema:
+        type: number
+      description: The number of results per page the user wants to return.
+      required: false
+    aircraftIdParam:
+      name: aircraft_id
+      description: Unique identifier for the aircraft.
+      schema:
+        type: string
+        format: uuid
+      in: path
+      required: true
+    locationUaParam:
+      in: query
+      name: location
+      description: Current location of the aircraft.
+      schema:
+        type: string
+    bandwidthPara:
+      in: query
+      name: bandwidth
+      description: Bandwidth
+      schema:
+        type: string
+    channelParam:
+      in: query
+      name: channel
+      description: Channel
+      schema:
+        type: string
+    transponderIdParam:
+      name: transponder_id
+      description: Unique id of transponder entity
+      schema:
+        type: string
+        format: uuid
+      in: path
+      required: true
+    modeTransponderParam:
+      in: query
+      name: mode
+      description: Operational mode of SSR.
+      schema:
+        type: string
+        enum:
+          - Mode A
+          - Mode B
+          - Mode C
+          - Mode S
+    typeSensorParam:
+      in: query
+      name: type
+      description: Type of sensor - EO, MWIR, SWIR
+      schema:
+        type: string
+        enum:
+          - EO
+          - MWIR
+          - SWIR
+    lastMaintenanceDateSensor:
+      name: last_maintenance_date
+      description: The Date in long unix epoch when the aircraft last underwent maintenance.
+      schema:
+        type: number
+    nextMaintenanceDateSensor:
+      name: next_maintenance_date
+      description: The scheduled Date in long unix epoch for the next maintenance.
+      schema:
+        type: number
+    creationDateSensorParam:
+      in: query
+      name: date_created
+      description: Date in long unix epoch of creations.
+      schema:
+        type: number
+    modificationDateSensorParam:
+      in: query
+      name: date_modified
+      description: Date in long unix epoch of modification
+      schema:
+        type: number
+    productIdParam:
+      in: query
+      name: product_id
+      description: Unique id of product
+      schema:
+        type: string
+    typeProductParam:
+      in: query
+      name: type_of_product
+      description: Enumeriation type of UA - Scan Eagle, Heron, ,Raven
+      schema:
+        type: string
+        enum:
+          - photo
+          - video
+          - LIDAR
+    creationDateProductParam:
+      in: query
+      name: date_created_of_product
+      description: Date in long unix epoch of creations.
+      schema:
+        type: number
+    modificationDateProductParam:
+      in: query
+      name: date_modified_of_product
+      description: Date in long unix epoch of modification
+      schema:
+        type: number
+    sensorId:
+      name: sensor_id
+      description: Unique identifier for the sensor.
+      schema:
+        type: string
+        format: uuid
+      in: path
+      required: true
+  responses:
+    SuccessAircraft:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/aircraft'
+    SuccessAircraftId:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/aircraft'
+    Deleted:
+      description: Deleted
+    SuccessTransmitters:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/transmitter'
+    SuccessTransmitter:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/transmitter'
+    SuccessTransponder:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/schemas-transponder'
+    SuccessSensors:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/sensor'
+    SuccessSensor:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/sensor'
+    SuccessProducts:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/product'
+    SuccessProduct:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/product'
