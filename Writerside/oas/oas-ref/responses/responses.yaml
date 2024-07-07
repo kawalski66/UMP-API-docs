@@ -24,3 +24,19 @@ responses:
 
   Deleted:
     description: "Deleted"
+
+  SuccessTransmitters:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          type: "array"
+          items:
+            $ref: "../schemas/schemas.yaml#/schemas/transmitter"
+
+  SuccessTransmitter:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/schemas.yaml#/schemas/transmitter"

@@ -1,0 +1,14 @@
+parameters:
+  bandwidthPara:
+    in: "query"
+    name: "bandwidth"
+    description: "Bandwidth"
+    schema:
+      type: "string"
+
+  channelParam:
+    in: "query"
+    name: "channel"
+    description: "Channel"
+    schema:
+      type: "string"

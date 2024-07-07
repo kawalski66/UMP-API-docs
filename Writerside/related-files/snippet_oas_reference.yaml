@@ -15,7 +15,7 @@ paths:
 components:
   parameters:
     aircraftId:
-      $ref: "./parameters/parameters.yaml#/parameters/aircraftId"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/aircraftId"
   schemas:
     sensor:
       $ref: "./schemas/schemas.yaml#/schemas/sensor"

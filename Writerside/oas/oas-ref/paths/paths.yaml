@@ -7,15 +7,15 @@ paths:
         "200":
           $ref: "../responses/responses.yaml#/responses/SuccessAircraft"
       parameters:
-        - $ref: "../parameters/parameters.yaml#/parameters/typeUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/modelUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/statusUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/lastFlightUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/dateCreatedUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/dateModifiedUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/pageUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/limitUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/typeUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/modelUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/statusUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/lastFlightUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/registrationNumUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateCreatedUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateModifiedUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/pageUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/limitUaParam"
       summary: "List aircraft"
       operationId: "listaircraft"
       description: "Fetch list of aircraft"
@@ -25,15 +25,15 @@ paths:
       tags:
         - "aircraft"
       parameters:
-        - $ref: "../parameters/parameters.yaml#/parameters/aircraftIdParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/typeUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/modelUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/statusUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/lastFlightUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/dateCreatedUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/dateModifiedUaParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/locationUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/typeUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/modelUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/statusUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/lastFlightUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/registrationNumUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateCreatedUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/dateModifiedUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/locationUaParam"
 
       responses:
         "200":
@@ -45,8 +45,8 @@ paths:
       tags:
         - "aircraft"
       parameters:
-        - $ref: "../parameters/parameters.yaml#/parameters/aircraftIdParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/registrationNumUaParam"
       responses:
         "201":
           $ref: "../responses/responses.yaml#/responses/SuccessAircraftId"
@@ -59,8 +59,8 @@ paths:
       tags:
         - "aircraft"
       parameters:
-        - $ref: "../parameters/parameters.yaml#/parameters/aircraftIdParam"
-        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/registrationNumUaParam"
 
       responses:
         "204":
@@ -68,3 +68,36 @@ paths:
       summary: "Delete an aircraft"
       operationId: "deleteaircraftById"
       description: "Deletes aircraft resource by Id."
+
+  aircraftIdTransmitter:
+    get:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/transmitterParameters.yaml#/parameters/bandwidthPara"
+        - $ref: "../parameters/transmitterParameters.yaml#/parameters/channelParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/pageUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/limitUaParam"
+
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessTransmitters"
+      summary: "List aircraft transmitters"
+      operationId: "listaircrafttransmitters"
+      description: "List aircraft transmitters "
+    put:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
+
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessTransmitter"
+
+      requestBody:
+        $ref: "../schemas/requestBodies.yaml#/requestBodies/transmitterBody"
+      summary: "Replace a transmitter"
+      operationId: ""
+      description: "Create or replace transmitter resources."

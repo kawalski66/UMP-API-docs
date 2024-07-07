@@ -12,97 +12,7 @@ paths:
   /ump/aircraft/{aircraft_id}:
     $ref: "./paths/paths.yaml#/paths/aircraftId"
   /ump/aircraft/{aircraft_id}/transmitters:
-    get:
-      tags:
-        - "aircraft"
-      parameters:
-        - name: "aircraft_id"
-          description: "Unique identifier for the aircraft."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-        - in: "query"
-          name: "bandwidth"
-          description: "Bandwidth"
-          schema:
-            type: "string"
-        - in: "query"
-          name: "channel"
-          description: "Channel"
-          schema:
-            type: "string"
-        - in: "query"
-          name: "date_created"
-          description: "Date in long unix epoch of creations."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "date_modified"
-          description: "Date in long unix epoch of modification."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "page"
-          schema:
-            type: "number"
-          description: "The page that the user wants to return."
-          required: false
-        - in: "query"
-          name: "limit"
-          schema:
-            type: "number"
-          description: "The number of results per page the user wants to return."
-          required: false
-      responses:
-        200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                type: "array"
-                items:
-                  $ref: "#/components/schemas/transmitter"
-      summary: "List aircraft transmitters"
-      operationId: "listaircrafttransmitters"
-      description: "List aircraft transmitters "
-    put:
-      tags:
-        - "aircraft"
-      parameters:
-        - name: "aircraft_id"
-          description: "Unique identifier for the aircraft."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-        - in: "query"
-          name: "date_created"
-          description: "Date in long unix epoch of creations."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "date_modified"
-          description: "Date in long unix epoch of modification."
-          schema:
-            type: "number"
-      responses:
-        200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/transmitter"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/transmitter"
-      summary: "Replace a transmitter"
-      operationId: ""
-      description: "Create or replace transmitter resources."
+    $ref: "./paths/paths.yaml#/paths/aircraftIdTransmitter"
   /ump/aircraft/{aircraft_id}/transponders/{transponder_id}:
     get:
       tags:
@@ -605,27 +515,27 @@ components:
 
   parameters:
     aircraftIdParam:
-      $ref: "./parameters/parameters.yaml#/parameters/aircraftIdParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
     typeUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/typeUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/typeUaParam"
     modelUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/modelUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/modelUaParam"
     statusUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/statusUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/statusUaParam"
     lastFlightUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/lastFlightUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/lastFlightUaParam"
     registrationNumUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/registrationNumUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/registrationNumUaParam"
     dateCreatedUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/dateCreatedUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/dateCreatedUaParam"
     dateModifiedUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/dateModifiedUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/dateModifiedUaParam"
     pageUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/pageUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/pageUaParam"
     limitUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/limitUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/limitUaParam"
     locationUaParam:
-      $ref: "./parameters/parameters.yaml#/parameters/locationUaParam"
+      $ref: "./parameters/aircraftParameters.yaml#/parameters/locationUaParam"
 
   responses:
     SuccessAircraft:

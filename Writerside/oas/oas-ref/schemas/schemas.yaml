@@ -81,7 +81,7 @@ schemas:
       date_modified:
         type: "number"
         description: "Date in long unix epoch of modification"
-    description: "UA which can be track a maintanence"
+    description: "UA which can be track a maintenance"
   sensor:
     type: "object"
     additionalProperties: false
@@ -115,7 +115,7 @@ schemas:
       date_modified:
         type: "number"
         description: "Date in long unix epoch of modification"
-    description: "Type of sensors what are able to be mounteed to UA"
+    description: "Type of sensors what are able to be mounted to UA"
   product:
     type: "object"
     additionalProperties: false
@@ -131,14 +131,14 @@ schemas:
           - "video"
           - "LIDAR"
         example: "photo"
-        description: "Enumeriation type of UA - Scan Eagle, Heron, ,Raven"
+        description: "Enumeration type of UA - Scan Eagle, Heron, ,Raven"
       date_created:
         type: "number"
         description: "Date in long unix epoch of creations."
       date_modified:
         type: "number"
         description: "Date in long unix epoch of modification"
-    description: "Type of sensors what are able to be mounteed to UA"
+    description: "Type of sensors what are able to be mounted to UA"
   transmitter:
     type: "object"
     additionalProperties: false
@@ -146,7 +146,7 @@ schemas:
       transmitter_id:
         type: "string"
         format: "uuid"
-        description: "Unique id of transmitter enitity"
+        description: "Unique id of transmitter entity"
       bandwidth:
         type: "string"
         description: "Bandwidth"
@@ -159,7 +159,7 @@ schemas:
       date_modified:
         type: "number"
         description: "Date in long unix epoch of modification."
-    description: "Transmitter enitity"
+    description: "Transmitter entity"
   transponder:
     type: "object"
     additionalProperties: false

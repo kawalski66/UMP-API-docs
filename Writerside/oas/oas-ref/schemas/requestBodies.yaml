@@ -5,3 +5,10 @@ requestBodies:
       application/json:
         schema:
           $ref: "./schemas.yaml#/schemas/aircraft"
+
+  transmitterBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas.yaml#/schemas/transmitter"
