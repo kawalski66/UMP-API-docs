@@ -21,3 +21,6 @@ responses:
       application/json:
         schema:
           $ref: "../schemas/schemas.yaml#/schemas/aircraft"
+
+  Deleted:
+    description: "Deleted"

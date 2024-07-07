@@ -48,21 +48,12 @@ paths:
       tags:
         - "aircraft"
       parameters:
-        - name: "aircraft_id"
-          description: "Unique identifier for the aircraft."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-        - in: "query"
-          name: "registration_number"
-          description: "The unique registration number of the aircraft."
-          schema:
-            type: "integer"
+        - $ref: "#/components/parameters/aircraftIdParam"
+        - $ref: "#/components/parameters/registrationNumUaParam"
+
       responses:
-        204:
-          description: "OK"
+        "204":
+          $ref: "#/components/responses/Deleted"
       summary: "Delete an aircraft"
       operationId: "deleteaircraftById"
       description: "Deletes aircraft resource by Id."
@@ -530,7 +521,7 @@ paths:
     post:
       tags:
         - "product"
-      parameters: []
+      parameters: [ ]
       responses:
         201:
           description: "Success"
@@ -687,6 +678,8 @@ components:
       $ref: "./responses/responses.yaml#/responses/SuccessAircraft"
     SuccessAircraftId:
       $ref: "./responses/responses.yaml#/responses/SuccessAircraftId"
-  securitySchemes: {}
+    Deleted:
+      $ref: "./responses/responses.yaml#/responses/Deleted"
+  securitySchemes: { }
 servers:
   - url: "/ump/v1/"
