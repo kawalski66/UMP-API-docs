@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  ump-api-docs:
+    image: mana66/ump-oas-docs
+    container_name: ump-api-docs
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./openapi.yaml:/ump-oas/swagger.yaml
+      - ./parameters/parameters.yaml:/ump-oas/parameters/parameters.yaml
+      - ./paths/paths.yaml:/ump-oas/paths/paths.yaml
+      - ./responses/responses.yaml:/ump-oas/responses/responses.yaml
+      - ./schemas/schemas.yaml:/ump-oas/schemas/schemas.yaml
+    environment:
+      - SWAGGER_JSON=/ump-oas/swagger.yaml

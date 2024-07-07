@@ -4,7 +4,7 @@ info:
   contact:
     email: "jakub.manak@unicornuniversity.net"
     url: "https://example.com/contact"
-  version: 0.0.2
+  version: 0.1.0
   title: "UA System API"
 paths:
   /ump/aircraft:

@@ -4,11 +4,11 @@ FROM swaggerapi/swagger-ui
 RUN mkdir -p /ump-oas
 
 # Copy your API definition files into the container
-COPY ./openapi.yaml /ump-oas/swagger.yaml
-COPY ./parameters/parameters.yaml /ump-oas/parameters/parameters.yaml
-COPY ./paths/paths.yaml /ump-oas/paths/paths.yaml
-COPY ./responses/responses.yaml /ump-oas/responses/responses.yaml
-COPY ./schemas/schemas.yaml /ump-oas/schemas/schemas.yaml
+#COPY ./openapi.yaml /ump-oas/swagger.yaml
+#COPY ./parameters/parameters.yaml /ump-oas/parameters/parameters.yaml
+#COPY ./paths/paths.yaml /ump-oas/paths/paths.yaml
+#COPY ./responses/responses.yaml /ump-oas/responses/responses.yaml
+#COPY ./schemas/schemas.yaml /ump-oas/schemas/schemas.yaml
 
 # Set environment variables to point to your main API definition file
 ENV SWAGGER_JSON=/ump-oas/swagger.yaml
