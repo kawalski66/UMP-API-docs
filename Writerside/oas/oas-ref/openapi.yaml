@@ -4,8 +4,13 @@ info:
   contact:
     email: "jakub.manak@unicornuniversity.net"
     url: "https://example.com/contact"
-  version: 0.1.0
+  version: 0.9.0
   title: "UA System API"
+servers:
+  - url: /ump.prod/v1
+    description: Production server (uses live data)
+  - url: /ump.dev/v1
+    description: Devel server (uses live data)
 tags:
   - name: "aircraft"
     description: "UA operations."
@@ -56,37 +61,5 @@ components:
     aircraftIdBody:
       $ref: "./schemas/requestBodies.yaml#/requestBodies/aircraftIdBody"
 
-  parameters:
-    aircraftIdParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
-    typeUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/typeUaParam"
-    modelUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/modelUaParam"
-    statusUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/statusUaParam"
-    lastFlightUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/lastFlightUaParam"
-    registrationNumUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/registrationNumUaParam"
-    dateCreatedUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/dateCreatedUaParam"
-    dateModifiedUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/dateModifiedUaParam"
-    pageUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/pageUaParam"
-    limitUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/limitUaParam"
-    locationUaParam:
-      $ref: "./parameters/aircraftParameters.yaml#/parameters/locationUaParam"
 
-  responses:
-    SuccessAircraft:
-      $ref: "./responses/responses.yaml#/responses/SuccessAircraft"
-    SuccessAircraftId:
-      $ref: "./responses/responses.yaml#/responses/SuccessAircraftId"
-    Deleted:
-      $ref: "./responses/responses.yaml#/responses/Deleted"
   securitySchemes: { }
-servers:
-  - url: "/ump/v1/"

@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   ump-api-docs:
-    image: mana66/ump-oas-docs
+    image: mana66/ump-oas-docs:0.9.0
     container_name: ump-api-docs
     ports:
       - "8080:8080"
