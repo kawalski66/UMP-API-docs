@@ -5,7 +5,7 @@ RUN mkdir -p /ump-oas
 
 # Copy your API definition files into the container
 COPY ./openapi.yaml /ump-oas/swagger.yaml
-#COPY parameters/petId.yaml /usr/share/nginx/html/api/schemas/petId.yaml
+COPY ./parameters/parameters.yaml /ump-oas/parameters/parameters.yaml
 #COPY paths/pets.yaml /usr/share/nginx/html/api/schemas/pets.yaml
 #COPY responses/UnexpectedError.yaml /usr/share/nginx/html/api/schemas/UnexpectedError.yaml
 COPY ./schemas/schemas.yaml /ump-oas/schemas/schemas.yaml

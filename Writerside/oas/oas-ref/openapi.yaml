@@ -21,61 +21,15 @@ paths:
                 items:
                   $ref: "#/components/schemas/aircraft"
       parameters:
-        - in: "query"
-          name: "type"
-          description: "Type of UA, fixed wing, rotary wing, "
-          schema:
-            type: "string"
-            enum:
-              - "f/w"
-              - "r/w"
-        - in: "query"
-          name: "model"
-          description: "The model name of the aircraft."
-          schema:
-            type: "string"
-        - in: "query"
-          name: "status"
-          description: "Current status of the aircraft (e.g., operational, under maintenance)."
-          schema:
-            type: "string"
-            enum:
-              - "green"
-              - "yellow"
-              - "red"
-              - "orange"
-        - in: "query"
-          name: "last_flight"
-          description: "Date in long unix epoch."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "registration_number"
-          description: "The unique registration number of the aircraft."
-          schema:
-            type: "integer"
-        - in: "query"
-          name: "date_created"
-          description: "Date in long unix epoch of creations."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "date_modified"
-          description: "Date in long unix epoch of modification"
-          schema:
-            type: "number"
-        - in: "query"
-          name: "page"
-          schema:
-            type: "number"
-          description: "The page that the user wants to return."
-          required: false
-        - in: "query"
-          name: "limit"
-          schema:
-            type: "number"
-          description: "The number of results per page the user wants to return."
-          required: false
+        - $ref: "#/components/parameters/typeUaParam"
+        - $ref: "#/components/parameters/modelUaParam"
+        - $ref: "#/components/parameters/statusUaParam"
+        - $ref: "#/components/parameters/lastFlightUaParam"
+        - $ref: "#/components/parameters/registrationNumUaParam"
+        - $ref: "#/components/parameters/dateCreatedUaParam"
+        - $ref: "#/components/parameters/dateModifiedUaParam"
+        - $ref: "#/components/parameters/pageUaParam"
+        - $ref: "#/components/parameters/limitUaParam"
       summary: "List aircraft"
       operationId: "listaircraft"
       description: "Fetch list of aircraft"
@@ -784,6 +738,25 @@ components:
       $ref: "./schemas/schemas.yaml#/schemas/transmitter"
     transponder:
       $ref: "./schemas/schemas.yaml#/schemas/transmitter"
+  parameters:
+    typeUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/typeUaParam"
+    modelUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/modelUaParam"
+    statusUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/statusUaParam"
+    lastFlightUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/lastFlightUaParam"
+    registrationNumUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/registrationNumUaParam"
+    dateCreatedUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/dateCreatedUaParam"
+    dateModifiedUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/dateModifiedUaParam"
+    pageUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/pageUaParam"
+    limitUaParam:
+      $ref: "./parameters/parameters.yaml#/parameters/limitUaParam"
   responses: {}
   securitySchemes: {}
 servers:

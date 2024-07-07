@@ -1,0 +1,73 @@
+parameters:
+  typeUaParam:
+    in: "query"
+    name: "type"
+    description: "Type of UA, fixed wing, rotary wing, "
+    schema:
+      type: "string"
+      enum:
+        - "f/w"
+        - "r/w"
+
+  modelUaParam:
+    in: "query"
+    name: "model"
+    description: "The model name of the aircraft."
+    schema:
+      type: "string"
+
+  statusUaParam:
+    in: "query"
+    name: "status"
+    description: "Current status of the aircraft (e.g., operational, under maintenance)."
+    schema:
+      type: "string"
+      enum:
+        - "green"
+        - "yellow"
+        - "red"
+        - "orange"
+
+  lastFlightUaParam:
+    in: "query"
+    name: "last_flight"
+    description: "Date in long unix epoch."
+    schema:
+      type: "number"
+
+  registrationNumUaParam:
+    in: "query"
+    name: "registration_number"
+    description: "The unique registration number of the aircraft."
+    schema:
+      type: "integer"
+
+  dateCreatedUaParam:
+    in: "query"
+    name: "date_created"
+    description: "Date in long unix epoch of creations."
+    schema:
+      type: "number"
+
+  dateModifiedUaParam:
+    in: "query"
+    name: "date_modified"
+    description: "Date in long unix epoch of modification"
+    schema:
+      type: "number"
+
+  pageUaParam:
+    in: "query"
+    name: "page"
+    schema:
+      type: "number"
+    description: "The page that the user wants to return."
+    required: false
+
+  limitUaParam:
+    in: "query"
+    name: "limit"
+    schema:
+      type: "number"
+    description: "The number of results per page the user wants to return."
+    required: false
