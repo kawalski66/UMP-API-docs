@@ -1,0 +1,777 @@
+openapi: "3.0.0"
+info:
+  description: "# UA System API - Overview\n\n## Introduction\n\nThis document serves as a comprehensive guide to help users interact with the various methods of the UA System API. The UA System API is designed to facilitate the management and operation of unmanned aerial systems (UAS) by providing access to essential data and functionalities.\n\n## Getting Started\n\nTo get started with the UA System API, follow these steps to ensure a smooth integration and usage experience.\n\n### Using The API\n\nThe UA System API allows you to access and manage data related to unmanned aerial systems. This includes functionalities such as retrieving UAS data, managing equipment, and overseeing operational tasks. The API is built using RESTful web services, ensuring it is robust, scalable, and easy to use.\n\n## Uptime & Planned Outages\n\nThe UA System API aims to maintain high availability and reliability. Any planned outages or maintenance windows will be communicated in advance to ensure minimal disruption. Real-time status updates and planned maintenance schedules can be found on our status page.\n\n### Rate Limits\n\nTo ensure fair usage and system stability, the UA System API enforces rate limits on the number of requests a user can make. The standard rate limit is 70 requests per minute. If this limit is exceeded, users will receive a `429 Too Many Requests` response, with a `Retry-After` header indicating when they can make the next request.\n\n## Contact Us\n\nFor any questions, support requests, or feedback regarding the UA System API, please contact us through the following channels:\n\n- **Email**: support@example.com\n- **Phone**: +1-800-555-1234\n- **Support Portal**: [Contact Support](https://example.com/support)\n\nWe are committed to providing timely and helpful assistance to ensure a positive experience with the UA System API."
+  contact:
+    email: "jakub.manak@unicornuniversity.net"
+    url: "https://example.com/contact"
+  version: 0.0.2
+  title: "UA System API"
+paths:
+  /ump/aircraft:
+    get:
+      tags:
+        - "aircraft"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "./schemas/schemas.yaml#/schemas/aircraft"
+      parameters:
+        - in: "query"
+          name: "type"
+          description: "Type of UA, fixed wing, rotary wing, "
+          schema:
+            type: "string"
+            enum:
+              - "f/w"
+              - "r/w"
+        - in: "query"
+          name: "model"
+          description: "The model name of the aircraft."
+          schema:
+            type: "string"
+        - in: "query"
+          name: "status"
+          description: "Current status of the aircraft (e.g., operational, under maintenance)."
+          schema:
+            type: "string"
+            enum:
+              - "green"
+              - "yellow"
+              - "red"
+              - "orange"
+        - in: "query"
+          name: "last_flight"
+          description: "Date in long unix epoch."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "registration_number"
+          description: "The unique registration number of the aircraft."
+          schema:
+            type: "integer"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification"
+          schema:
+            type: "number"
+        - in: "query"
+          name: "page"
+          schema:
+            type: "number"
+          description: "The page that the user wants to return."
+          required: false
+        - in: "query"
+          name: "limit"
+          schema:
+            type: "number"
+          description: "The number of results per page the user wants to return."
+          required: false
+      summary: "List aircraft"
+      operationId: "listaircraft"
+      description: "Fetch list of aircraft"
+  /ump/aircraft/{aircraft_id}:
+    get:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "registration_number"
+          description: "The unique registration number of the aircraft."
+          schema:
+            type: "integer"
+        - in: "query"
+          name: "type"
+          description: "Type of UA, fixed wing, rotary wing, "
+          schema:
+            type: "string"
+            enum:
+              - "f/w"
+              - "r/w"
+        - in: "query"
+          name: "model"
+          description: "The model name of the aircraft."
+          schema:
+            type: "string"
+        - in: "query"
+          name: "status"
+          description: "Current status of the aircraft (e.g., operational, under maintenance)."
+          schema:
+            type: "string"
+            enum:
+              - "green"
+              - "yellow"
+              - "red"
+              - "orange"
+        - in: "query"
+          name: "location"
+          description: "Current location of the aircraft."
+          schema:
+            type: "string"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification"
+          schema:
+            type: "number"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/schemas.yaml#/schemas/aircraft"
+      summary: "Get an aircraft"
+      operationId: "getaircraftById"
+      description: "Fetch aircraft by its ID."
+    put:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "registration_number"
+          description: "The unique registration number of the aircraft."
+          schema:
+            type: "integer"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/schemas.yaml#/schemas/aircraft"
+      summary: "Replace or create an aircraft"
+      operationId: "replaceaircraftById"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/schemas.yaml#/schemas/aircraft"
+      description: "Creates or replaces all aircraft resource."
+    delete:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "registration_number"
+          description: "The unique registration number of the aircraft."
+          schema:
+            type: "integer"
+      responses:
+        204:
+          description: "OK"
+      summary: "Delete an aircraft"
+      operationId: "deleteaircraftById"
+      description: "Deletes aircraft resource by Id."
+  /ump/aircraft/{aircraft_id}/transmitters:
+    get:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "bandwidth"
+          description: "Bandwidth"
+          schema:
+            type: "string"
+        - in: "query"
+          name: "channel"
+          description: "Channel"
+          schema:
+            type: "string"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "page"
+          schema:
+            type: "number"
+          description: "The page that the user wants to return."
+          required: false
+        - in: "query"
+          name: "limit"
+          schema:
+            type: "number"
+          description: "The number of results per page the user wants to return."
+          required: false
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "./schemas/schemas.yaml#/schemas/transmitter"
+      summary: "List aircraft transmitters"
+      operationId: "listaircrafttransmitters"
+      description: "List aircraft transmitters "
+    put:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification."
+          schema:
+            type: "number"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/schemas.yaml#/schemas/transmitter"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/schemas.yaml#/schemas/transmitter"
+      summary: "Replace a transmitter"
+      operationId: ""
+      description: "Create or replace transmitter resources."
+  /ump/aircraft/{aircraft_id}/transponders/{transponder_id}:
+    get:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - name: "transponder_id"
+          description: "Unique id of transponder entity"
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "mode"
+          description: "Operational mode of SSR."
+          schema:
+            type: "string"
+            enum:
+              - "Mode A"
+              - "Mode B"
+              - "Mode C"
+              - "Mode S"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification."
+          schema:
+            type: "number"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/schemas.yaml#/schemas/transponder"
+      summary: "Get an aircraft transponder"
+      operationId: "getaircrafttransponderById"
+      description: "Fetch an aircraft transponder."
+    put:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - name: "transponder_id"
+          description: "Unique id of transponder entity"
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "mode"
+          description: "Operational mode of SSR."
+          schema:
+            type: "string"
+            enum:
+              - "Mode A"
+              - "Mode B"
+              - "Mode C"
+              - "Mode S"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification."
+          schema:
+            type: "number"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/schemas.yaml#/schemas/transponder"
+      summary: "Replace an aircraft transponder"
+      operationId: "replaceaircrafttransponderById"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/schemas.yaml#/schemas/transponder"
+      description: "Create or replace an aircraft transponder"
+    delete:
+      tags:
+        - "aircraft"
+      parameters:
+        - name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - name: "transponder_id"
+          description: "Unique id of transponder entity"
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+      responses:
+        204:
+          description: "OK"
+      summary: "Delete an aircraft transponder"
+      operationId: "deleteaircrafttransponderById"
+      description: "Delete an aircraft transponder resource."
+  /ump/sensors:
+    get:
+      tags:
+        - "sensor"
+      parameters:
+        - in: "query"
+          name: "type"
+          description: "Type of sensor - EO, MWIR, SWIR"
+          schema:
+            type: "string"
+            enum:
+              - "EO"
+              - "MWIR"
+              - "SWIR"
+        - in: "query"
+          name: "last_maintenance_date"
+          description: "The Date in long unix epoch when the aircraft last underwent maintenance."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "next_maintenance_date"
+          description: "The scheduled Date in long unix epoch for the next maintenance."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification"
+          schema:
+            type: "number"
+        - in: "query"
+          name: "product_id"
+          description: "Unique id of product"
+          schema:
+            type: "string"
+        - in: "query"
+          name: "type_of_product"
+          description: "Enumeriation type of UA - Scan Eagle, Heron, ,Raven"
+          schema:
+            type: "string"
+            enum:
+              - "photo"
+              - "video"
+              - "LIDAR"
+        - in: "query"
+          name: "date_created_of_product"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified_of_product"
+          description: "Date in long unix epoch of modification"
+          schema:
+            type: "number"
+        - in: "query"
+          name: "page"
+          schema:
+            type: "number"
+          description: "The page that the user wants to return."
+          required: false
+        - in: "query"
+          name: "limit"
+          schema:
+            type: "number"
+          description: "The number of results per page the user wants to return."
+          required: false
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/sensor"
+      summary: "List sensors"
+      operationId: "listsensors"
+      description: "Fetch sensors"
+  /ump/sensors/{sensor_id}:
+    get:
+      tags:
+        - "sensor"
+      parameters:
+        - name: "sensor_id"
+          description: "Unique identifier for the sensor."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "product_id"
+          description: "Unique id of product"
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sensor"
+      summary: "Get a sensor"
+      operationId: "getsensorById2"
+      description: "Fetch sensor by ID."
+    put:
+      tags:
+        - "sensor"
+      parameters:
+        - name: "sensor_id"
+          description: "Unique identifier for the sensor."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "type"
+          description: "Type of sensor - EO, MWIR, SWIR"
+          schema:
+            type: "string"
+            enum:
+              - "EO"
+              - "MWIR"
+              - "SWIR"
+        - in: "query"
+          name: "product_id"
+          description: "Unique id of product"
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sensor"
+      summary: "Replace a sensor"
+      operationId: "replacesensorById"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/sensor"
+      description: "Create or replace a sensor resource."
+    delete:
+      tags:
+        - "sensor"
+      parameters:
+        - name: "sensor_id"
+          description: "Unique identifier for the sensor."
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+      responses:
+        204:
+          description: "OK"
+      summary: "Delete a sensor"
+      operationId: "deletesensorById"
+      description: "Delete sensor resources by Id."
+  /ump/products:
+    get:
+      tags:
+        - "product"
+      parameters:
+        - in: "query"
+          name: "type"
+          description: "Enumeriation type of UA - Scan Eagle, Heron, ,Raven"
+          schema:
+            type: "string"
+            enum:
+              - "photo"
+              - "video"
+              - "LIDAR"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification"
+          schema:
+            type: "number"
+        - in: "query"
+          name: "type_of_sensor"
+          description: "Type of sensor - EO, MWIR, SWIR"
+          schema:
+            type: "string"
+            enum:
+              - "EO"
+              - "MWIR"
+              - "SWIR"
+        - in: "query"
+          name: "date_created_of sensor"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "aircraft_id"
+          description: "Unique identifier for the aircraft."
+          schema:
+            type: "string"
+        - in: "query"
+          name: "registration_number"
+          description: "The unique registration number of the aircraft."
+          schema:
+            type: "integer"
+        - in: "query"
+          name: "last_flight"
+          description: "Date in long unix epoch."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "page"
+          schema:
+            type: "number"
+          description: "The page that the user wants to return."
+          required: false
+        - in: "query"
+          name: "limit"
+          schema:
+            type: "number"
+          description: "The number of results per page the user wants to return."
+          required: false
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/product"
+      summary: "List products"
+      operationId: "listproducts"
+      description: "### Endpoint: `listProducts`\n\nThe `listProducts` endpoint retrieves a list of all products generated by sensors associated with unmanned aerial systems (UAS) registered in the UA Portal.\n\n**Operation Description:**\n\n- **URL**: `/ump/products`\n- **Method**: `GET`\n- **Description**: Fetches details of all products, including their identifiers, types, and creation/modification dates.\n\n**Example Request:**\n\n```http\nGET /ump/products HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n```json\n[\n  {\n    \"product_id\": \"prod123\",\n    \"type\": \"image\",\n    \"date_created\": 1672531400,\n    \"date_modified\": 1675123400\n  },\n  {\n    \"product_id\": \"prod124\",\n    \"type\": \"point_cloud\",\n    \"date_created\": 1672531600,\n    \"date_modified\": 1675123600\n  }\n]\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the list of products.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Products not found.\n- `429 Too Many Requests`: Rate limit exceeded.\n\n\nThis path supports pagination and uses the following query parameters:\n\n| Query Parameter | Description | Example |\n| --- | --- | --- |\n| 'page' | The page that the user wants to return. | 'page=1' (default: 1)|\n| 'limit' | The number of results per page the user wants to return. | 'limit=10' (default: 10)|\n\nThis creates a URI structure similar to:\n\nPage 1: '/ump/products?page=1&limit=10'\n\nPage 2: '/ump/products?page=2&limit=10'\n\n"
+    post:
+      tags:
+        - "product"
+      parameters: []
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/product"
+      summary: "Create a new product "
+      operationId: "createproduct"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/product"
+      description: "Fetch list of product."
+  /ump/products/{product_id}:
+    get:
+      tags:
+        - "product"
+      parameters:
+        - name: "product_id"
+          description: "Unique id of product"
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+        - in: "query"
+          name: "type"
+          description: "Enumeration type of UA - Scan Eagle, Heron, Raven"
+          schema:
+            type: "string"
+            enum:
+              - "photo"
+              - "video"
+              - "LIDAR"
+        - in: "query"
+          name: "date_created"
+          description: "Date in long unix epoch of creations."
+          schema:
+            type: "number"
+        - in: "query"
+          name: "date_modified"
+          description: "Date in long unix epoch of modification"
+          schema:
+            type: "number"
+        - in: "query"
+          name: "type_of_sensor"
+          description: "Type of sensor - EO, MWIR, SWIR"
+          schema:
+            type: "string"
+            enum:
+              - "EO"
+              - "MWIR"
+              - "SWIR"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/product"
+      summary: "Get a product"
+      operationId: "getproductById"
+      description: "Fetch product resource by Id."
+    put:
+      tags:
+        - "product"
+      parameters:
+        - name: "product_id"
+          description: "Unique id of product"
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/product"
+      summary: "Replace a product"
+      operationId: "replaceproductById"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/product"
+      description: "Create or replace product resource."
+    delete:
+      tags:
+        - "product"
+      parameters:
+        - name: "product_id"
+          description: "Unique id of product"
+          schema:
+            type: "string"
+            format: "uuid"
+          in: "path"
+          required: true
+      responses:
+        204:
+          description: "OK"
+      summary: "Delete a product"
+      operationId: "deleteproductById"
+      description: "Delete product resource by Id."
+components:
+  responses: {}
+  securitySchemes: {}
+servers:
+  - url: "/ump/v1/"

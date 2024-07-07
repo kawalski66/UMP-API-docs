@@ -1,0 +1,189 @@
+schemas:
+  error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "Error code"
+        example: 400
+      message:
+        type: "string"
+        description: "Error message"
+        example: "Invalid request parameters"
+      details:
+        type: "string"
+        description: "Additional details about the error"
+        example: "The 'email' field is required."
+  aircraft:
+    type: "object"
+    additionalProperties: false
+    properties:
+      aircraft_id:
+        type: "string"
+        format: "uuid"
+        description: "Unique identifier for the aircraft."
+      registration_number:
+        type: "integer"
+        description: "The unique registration number of the aircraft."
+      type:
+        type: "string"
+        enum:
+          - "f/w"
+          - "r/w"
+        example: "f/w"
+        description: "Type of UA, fixed wing, rotary wing, "
+      model:
+        type: "string"
+        description: "The model name of the aircraft."
+      manufacturer:
+        type: "string"
+        description: "The manufacturer of the aircraft."
+      status:
+        type: "string"
+        enum:
+          - "green"
+          - "yellow"
+          - "red"
+          - "orange"
+        example: "green"
+        description: "Current status of the aircraft (e.g., operational, under maintenance)."
+      last_maintenance_date:
+        type: "number"
+        description: "The Date in long unix epoch when the aircraft last underwent maintenance."
+      next_maintenance_date:
+        type: "number"
+        description: "The scheduled Date in long unix epoch for the next maintenance."
+      location:
+        type: "string"
+        description: "Current location of the aircraft."
+      operational_hours:
+        type: "number"
+        description: "Total operational hours logged by the aircraft."
+      last_flight:
+        type: "number"
+        description: "Date in long unix epoch."
+      sensors:
+        type: "array"
+        items:
+          $ref: "#/components/schemas/sensor"
+        description: "List of sensor payloads attached to the aircraft, each containing:"
+      transmitters:
+        type: "array"
+        items:
+          $ref: "#/components/schemas/transmitter"
+        description: "List of mounted transmitters"
+      transponder:
+        $ref: "#/components/schemas/transponder"
+        description: "Mounted transponder"
+      date_created:
+        type: "number"
+        description: "Date in long unix epoch of creations."
+      date_modified:
+        type: "number"
+        description: "Date in long unix epoch of modification"
+    description: "UA which can be track a maintanence"
+  sensor:
+    type: "object"
+    additionalProperties: false
+    properties:
+      sensor_id:
+        type: "string"
+        format: "uuid"
+        description: "Unique identifier for the sensor."
+      type:
+        type: "string"
+        enum:
+          - "EO"
+          - "MWIR"
+          - "SWIR"
+        example: "EO"
+        description: "Type of sensor - EO, MWIR, SWIR"
+      products:
+        type: "array"
+        items:
+          $ref: "#/components/schemas/product"
+        description: "List of products related to sensor."
+      last_maintenance_date:
+        type: "number"
+        description: "The Date in long unix epoch when the aircraft last underwent maintenance."
+      next_maintenance_date:
+        type: "number"
+        description: "The scheduled Date in long unix epoch for the next maintenance."
+      date_created:
+        type: "number"
+        description: "Date in long unix epoch of creations."
+      date_modified:
+        type: "number"
+        description: "Date in long unix epoch of modification"
+    description: "Type of sensors what are able to be mounteed to UA"
+  product:
+    type: "object"
+    additionalProperties: false
+    properties:
+      product_id:
+        type: "string"
+        format: "uuid"
+        description: "Unique id of product"
+      type:
+        type: "string"
+        enum:
+          - "photo"
+          - "video"
+          - "LIDAR"
+        example: "photo"
+        description: "Enumeriation type of UA - Scan Eagle, Heron, ,Raven"
+      date_created:
+        type: "number"
+        description: "Date in long unix epoch of creations."
+      date_modified:
+        type: "number"
+        description: "Date in long unix epoch of modification"
+    description: "Type of sensors what are able to be mounteed to UA"
+  transmitter:
+    type: "object"
+    additionalProperties: false
+    properties:
+      transmitter_id:
+        type: "string"
+        format: "uuid"
+        description: "Unique id of transmitter enitity"
+      bandwidth:
+        type: "string"
+        description: "Bandwidth"
+      channel:
+        type: "string"
+        description: "Channel"
+      date_created:
+        type: "number"
+        description: "Date in long unix epoch of creations."
+      date_modified:
+        type: "number"
+        description: "Date in long unix epoch of modification."
+    description: "Transmitter enitity"
+  transponder:
+    type: "object"
+    additionalProperties: false
+    properties:
+      transponder_id:
+        type: "string"
+        format: "uuid"
+        description: "Unique id of transponder entity"
+      calibration:
+        type: "number"
+        description: "Date of calibration in unix epoch."
+      mode:
+        type: "string"
+        enum:
+          - "Mode A"
+          - "Mode B"
+          - "Mode C"
+          - "Mode S"
+        example: "Mode A"
+        description: "Operational mode of SSR."
+      date_created:
+        type: "number"
+        description: "Date in long unix epoch of creations."
+      date_modified:
+        type: "number"
+        description: "Date in long unix epoch of modification."
+    description: "Transponder Entity"
