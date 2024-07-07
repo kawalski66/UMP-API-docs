@@ -6,6 +6,17 @@ info:
     url: "https://example.com/contact"
   version: 0.1.0
   title: "UA System API"
+tags:
+  - name: "aircraft"
+    description: "UA operations."
+  - name: "transmitter"
+    description: "Transmitter operations related to UA."
+  - name: "transponder"
+    description: "Transponder operations related to UA."
+  - name: "sensor"
+    description: "Sensor operations."
+  - name: "product"
+    description: "Product operations."
 paths:
   /ump/aircraft:
     $ref: "./paths/paths.yaml#/paths/listAircraft"
