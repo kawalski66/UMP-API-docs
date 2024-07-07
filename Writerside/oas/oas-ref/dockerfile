@@ -7,7 +7,7 @@ RUN mkdir -p /ump-oas
 COPY ./openapi.yaml /ump-oas/swagger.yaml
 COPY ./parameters/parameters.yaml /ump-oas/parameters/parameters.yaml
 #COPY paths/pets.yaml /usr/share/nginx/html/api/schemas/pets.yaml
-#COPY responses/UnexpectedError.yaml /usr/share/nginx/html/api/schemas/UnexpectedError.yaml
+COPY ./responses/responses.yaml /ump-oas/responses/responses.yaml
 COPY ./schemas/schemas.yaml /ump-oas/schemas/schemas.yaml
 
 # Set environment variables to point to your main API definition file

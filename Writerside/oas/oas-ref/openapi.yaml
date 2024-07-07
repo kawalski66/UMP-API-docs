@@ -13,13 +13,7 @@ paths:
         - "aircraft"
       responses:
         200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                type: "array"
-                items:
-                  $ref: "#/components/schemas/aircraft"
+          $ref: "#/components/responses/Success"
       parameters:
         - $ref: "#/components/parameters/typeUaParam"
         - $ref: "#/components/parameters/modelUaParam"
@@ -757,7 +751,9 @@ components:
       $ref: "./parameters/parameters.yaml#/parameters/pageUaParam"
     limitUaParam:
       $ref: "./parameters/parameters.yaml#/parameters/limitUaParam"
-  responses: {}
+  responses:
+    Success:
+      $ref: "./responses/responses.yaml#/responses/Success"
   securitySchemes: {}
 servers:
   - url: "/ump/v1/"
