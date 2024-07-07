@@ -34,32 +34,15 @@ paths:
       tags:
         - "aircraft"
       parameters:
-        - name: "aircraft_id"
-          description: "Unique identifier for the aircraft."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-        - in: "query"
-          name: "registration_number"
-          description: "The unique registration number of the aircraft."
-          schema:
-            type: "integer"
+        - $ref: "#/components/parameters/aircraftIdParam"
+        - $ref: "#/components/parameters/registrationNumUaParam"
       responses:
-        201:
-          description: "Created"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/aircraft"
+        "201":
+          $ref: "#/components/responses/SuccessAircraftId"
       summary: "Replace or create an aircraft"
       operationId: "replaceaircraftById"
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/aircraft"
+        $ref: "#/components/requestBodies/aircraftIdBody"
       description: "Creates or replaces all aircraft resource."
     delete:
       tags:
@@ -670,6 +653,11 @@ components:
       $ref: "./schemas/schemas.yaml#/schemas/transmitter"
     transponder:
       $ref: "./schemas/schemas.yaml#/schemas/transmitter"
+
+  requestBodies:
+    aircraftIdBody:
+      $ref: "./schemas/requestBodies.yaml#/requestBodies/aircraftIdBody"
+
   parameters:
     aircraftIdParam:
       $ref: "./parameters/parameters.yaml#/parameters/aircraftIdParam"

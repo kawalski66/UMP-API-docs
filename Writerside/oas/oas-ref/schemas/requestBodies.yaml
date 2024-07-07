@@ -1,0 +1,7 @@
+requestBodies:
+  aircraftIdBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas.yaml#/schemas/aircraft"

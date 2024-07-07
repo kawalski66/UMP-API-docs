@@ -19,3 +19,5 @@ paths:
       summary: "List aircraft"
       operationId: "listaircraft"
       description: "Fetch list of aircraft"
+
+  aircraftId:

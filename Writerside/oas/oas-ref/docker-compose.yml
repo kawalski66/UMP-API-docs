@@ -12,5 +12,6 @@ services:
       - ./paths/paths.yaml:/ump-oas/paths/paths.yaml
       - ./responses/responses.yaml:/ump-oas/responses/responses.yaml
       - ./schemas/schemas.yaml:/ump-oas/schemas/schemas.yaml
+      - ./schemas/requestBodies.yaml:/ump-oas/schemas/requestBodies.yaml
     environment:
       - SWAGGER_JSON=/ump-oas/swagger.yaml

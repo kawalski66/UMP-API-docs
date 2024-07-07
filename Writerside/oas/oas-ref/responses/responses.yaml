@@ -13,4 +13,11 @@ responses:
     content:
       application/json:
         schema:
-          $ref: "#/components/schemas/aircraft"
+          $ref: "../schemas/schemas.yaml#/schemas/aircraft"
+
+  CreatedAircraftId:
+    description: "Created"
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/schemas.yaml#/schemas/aircraft"
