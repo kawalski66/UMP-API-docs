@@ -151,3 +151,65 @@ paths:
       summary: "Delete an aircraft transponder"
       operationId: "deleteaircrafttransponderById"
       description: "Delete an aircraft transponder resource."
+
+  listSensors:
+    get:
+      tags:
+        - "sensor"
+      parameters:
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/typeSensorParam"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/lastMaintenanceDateSensor"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/nextMaintenanceDateSensor"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/creationDateSensorParam"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/modificationDateSensorParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/productIdParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/typeProductParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/creationDateProductParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/modificationDateProductParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/pageUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/limitUaParam"
+
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessSensors"
+      summary: "List sensors"
+      operationId: "listsensors"
+      description: "Fetch sensors"
+
+  sensorId:
+    get:
+      tags:
+        - "sensor"
+      parameters:
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/sensorId"
+        - $ref: "../parameters/productParameters.yaml#/parameters/productIdParam"
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessSensor"
+      summary: "Get a sensor"
+      operationId: "getsensorById2"
+      description: "Fetch sensor by ID."
+    put:
+      tags:
+        - "sensor"
+      parameters:
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/sensorId"
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessSensor"
+      summary: "Replace a sensor"
+      operationId: "replacesensorById"
+      requestBody:
+        $ref: "../schemas/requestBodies.yaml#/requestBodies/sensorBody"
+      description: "Create or replace a sensor resource."
+    delete:
+      tags:
+        - "sensor"
+      parameters:
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/sensorId"
+      responses:
+        "204":
+          $ref: "../responses/responses.yaml#/responses/Deleted"
+      summary: "Delete a sensor"
+      operationId: "deletesensorById"
+      description: "Delete sensor resources by Id."

@@ -26,174 +26,11 @@ paths:
     $ref: "./paths/paths.yaml#/paths/aircraftIdTransmitter"
   /ump/aircraft/{aircraft_id}/transponders/{transponder_id}:
     $ref: "./paths/paths.yaml#/paths/aircraftIdTransponder"
-
-
   /ump/sensors:
-    get:
-      tags:
-        - "sensor"
-      parameters:
-        - in: "query"
-          name: "type"
-          description: "Type of sensor - EO, MWIR, SWIR"
-          schema:
-            type: "string"
-            enum:
-              - "EO"
-              - "MWIR"
-              - "SWIR"
-        - in: "query"
-          name: "last_maintenance_date"
-          description: "The Date in long unix epoch when the aircraft last underwent maintenance."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "next_maintenance_date"
-          description: "The scheduled Date in long unix epoch for the next maintenance."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "date_created"
-          description: "Date in long unix epoch of creations."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "date_modified"
-          description: "Date in long unix epoch of modification"
-          schema:
-            type: "number"
-        - in: "query"
-          name: "product_id"
-          description: "Unique id of product"
-          schema:
-            type: "string"
-        - in: "query"
-          name: "type_of_product"
-          description: "Enumeriation type of UA - Scan Eagle, Heron, ,Raven"
-          schema:
-            type: "string"
-            enum:
-              - "photo"
-              - "video"
-              - "LIDAR"
-        - in: "query"
-          name: "date_created_of_product"
-          description: "Date in long unix epoch of creations."
-          schema:
-            type: "number"
-        - in: "query"
-          name: "date_modified_of_product"
-          description: "Date in long unix epoch of modification"
-          schema:
-            type: "number"
-        - in: "query"
-          name: "page"
-          schema:
-            type: "number"
-          description: "The page that the user wants to return."
-          required: false
-        - in: "query"
-          name: "limit"
-          schema:
-            type: "number"
-          description: "The number of results per page the user wants to return."
-          required: false
-      responses:
-        200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                type: "array"
-                items:
-                  $ref: "#/components/schemas/sensor"
-      summary: "List sensors"
-      operationId: "listsensors"
-      description: "Fetch sensors"
+    $ref: "./paths/paths.yaml#/paths/listSensors"
   /ump/sensors/{sensor_id}:
-    get:
-      tags:
-        - "sensor"
-      parameters:
-        - name: "sensor_id"
-          description: "Unique identifier for the sensor."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-        - in: "query"
-          name: "product_id"
-          description: "Unique id of product"
-          schema:
-            type: "string"
-      responses:
-        200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/sensor"
-      summary: "Get a sensor"
-      operationId: "getsensorById2"
-      description: "Fetch sensor by ID."
-    put:
-      tags:
-        - "sensor"
-      parameters:
-        - name: "sensor_id"
-          description: "Unique identifier for the sensor."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-        - in: "query"
-          name: "type"
-          description: "Type of sensor - EO, MWIR, SWIR"
-          schema:
-            type: "string"
-            enum:
-              - "EO"
-              - "MWIR"
-              - "SWIR"
-        - in: "query"
-          name: "product_id"
-          description: "Unique id of product"
-          schema:
-            type: "string"
-      responses:
-        200:
-          description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/sensor"
-      summary: "Replace a sensor"
-      operationId: "replacesensorById"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/sensor"
-      description: "Create or replace a sensor resource."
-    delete:
-      tags:
-        - "sensor"
-      parameters:
-        - name: "sensor_id"
-          description: "Unique identifier for the sensor."
-          schema:
-            type: "string"
-            format: "uuid"
-          in: "path"
-          required: true
-      responses:
-        204:
-          description: "OK"
-      summary: "Delete a sensor"
-      operationId: "deletesensorById"
-      description: "Delete sensor resources by Id."
+    $ref: "./paths/paths.yaml#/paths/sensorId"
+
   /ump/products:
     get:
       tags:
@@ -270,7 +107,7 @@ paths:
                   $ref: "#/components/schemas/product"
       summary: "List products"
       operationId: "listproducts"
-      description: "### Endpoint: `listProducts`\n\nThe `listProducts` endpoint retrieves a list of all products generated by sensors associated with unmanned aerial systems (UAS) registered in the UA Portal.\n\n**Operation Description:**\n\n- **URL**: `/ump/products`\n- **Method**: `GET`\n- **Description**: Fetches details of all products, including their identifiers, types, and creation/modification dates.\n\n**Example Request:**\n\n```http\nGET /ump/products HTTP/1.1\nHost: api.example.com\n```\n\n**Example Response:**\n\n```json\n[\n  {\n    \"product_id\": \"prod123\",\n    \"type\": \"image\",\n    \"date_created\": 1672531400,\n    \"date_modified\": 1675123400\n  },\n  {\n    \"product_id\": \"prod124\",\n    \"type\": \"point_cloud\",\n    \"date_created\": 1672531600,\n    \"date_modified\": 1675123600\n  }\n]\n```\n\n**Response Codes:**\n\n- `200 OK`: Successful retrieval of the list of products.\n- `401 Unauthorized`: Authentication failed.\n- `404 Not Found`: Products not found.\n- `429 Too Many Requests`: Rate limit exceeded.\n\n\nThis path supports pagination and uses the following query parameters:\n\n| Query Parameter | Description | Example |\n| --- | --- | --- |\n| 'page' | The page that the user wants to return. | 'page=1' (default: 1)|\n| 'limit' | The number of results per page the user wants to return. | 'limit=10' (default: 10)|\n\nThis creates a URI structure similar to:\n\nPage 1: '/ump/products?page=1&limit=10'\n\nPage 2: '/ump/products?page=2&limit=10'\n\n"
+      description: "List products"
     post:
       tags:
         - "product"

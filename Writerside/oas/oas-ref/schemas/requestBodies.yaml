@@ -20,3 +20,11 @@ requestBodies:
         schema:
           $ref: "./schemas.yaml#/schemas/transponder"
       description: "Create or replace an aircraft transponder"
+
+  sensorBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas.yaml#/schemas/sensor"
+      description: "Create or replace a sensor resource."

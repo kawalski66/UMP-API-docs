@@ -11,6 +11,8 @@ services:
       - ./parameters/aircraftParameters.yaml:/ump-oas/parameters/aircraftParameters.yaml
       - ./parameters/transmitterParameters.yaml:/ump-oas/parameters/transmitterParameters.yaml
       - ./parameters/transponderParameters.yaml:/ump-oas/parameters/transponderParameters.yaml
+      - ./parameters/sensorParameters.yaml:/ump-oas/parameters/sensorParameters.yaml
+      - ./parameters/productParameters.yaml:/ump-oas/parameters/productParameters.yaml
       - ./paths/paths.yaml:/ump-oas/paths/paths.yaml
       - ./responses/responses.yaml:/ump-oas/responses/responses.yaml
       - ./schemas/schemas.yaml:/ump-oas/schemas/schemas.yaml

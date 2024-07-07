@@ -1,0 +1,37 @@
+parameters:
+  productIdParam:
+    in: "query"
+    name: "product_id"
+    description: "Unique id of product"
+    schema:
+      type: "string"
+
+  typeProductParam:
+    in: "query"
+    name: "type_of_product"
+    description: "Enumeriation type of UA - Scan Eagle, Heron, ,Raven"
+    schema:
+      type: "string"
+      enum:
+        - "photo"
+        - "video"
+        - "LIDAR"
+
+  creationDateProductParam:
+    in: "query"
+    name: "date_created_of_product"
+    description: "Date in long unix epoch of creations."
+    schema:
+      type: "number"
+
+  modificationDateProductParam:
+    in: "query"
+    name: "date_modified_of_product"
+    description: "Date in long unix epoch of modification"
+    schema:
+      type: "number"
+
+
+
+
+

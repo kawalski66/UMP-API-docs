@@ -1,0 +1,51 @@
+parameters:
+  sensorId:
+    name: "sensor_id"
+    description: "Unique identifier for the sensor."
+    schema:
+      type: "string"
+      format: "uuid"
+    in: "path"
+    required: true
+
+  typeSensorParam:
+    in: "query"
+    name: "type"
+    description: "Type of sensor - EO, MWIR, SWIR"
+    schema:
+      type: "string"
+      enum:
+        - "EO"
+        - "MWIR"
+        - "SWIR"
+
+  lastMaintenanceDateSensor:
+    name: "last_maintenance_date"
+    description: "The Date in long unix epoch when the aircraft last underwent maintenance."
+    schema:
+      type: "number"
+
+  nextMaintenanceDateSensor:
+    name: "next_maintenance_date"
+    description: "The scheduled Date in long unix epoch for the next maintenance."
+    schema:
+      type: "number"
+
+  creationDateSensorParam:
+    in: "query"
+    name: "date_created"
+    description: "Date in long unix epoch of creations."
+    schema:
+      type: "number"
+
+  modificationDateSensorParam:
+    in: "query"
+    name: "date_modified"
+    description: "Date in long unix epoch of modification"
+    schema:
+      type: "number"
+
+
+
+
+

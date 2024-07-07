@@ -47,3 +47,19 @@ responses:
       application/json:
         schema:
           $ref: "../schemas/schemas.yaml#/schemas/transponder"
+
+  SuccessSensors:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          type: "array"
+          items:
+            $ref: "../schemas/schemas.yaml#/schemas/sensor"
+
+  SuccessSensor:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          $ref: "../schemas/schemas.yaml#/schemas/sensor"
