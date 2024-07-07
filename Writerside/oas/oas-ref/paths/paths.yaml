@@ -213,3 +213,81 @@ paths:
       summary: "Delete a sensor"
       operationId: "deletesensorById"
       description: "Delete sensor resources by Id."
+
+  listProducts:
+    get:
+      tags:
+        - "product"
+      parameters:
+        - $ref: "../parameters/productParameters.yaml#/parameters/typeProductParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/creationDateProductParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/modificationDateProductParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/pageUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/limitUaParam"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/typeSensorParam"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/lastMaintenanceDateSensor"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/nextMaintenanceDateSensor"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/registrationNumUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/lastFlightUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/pageUaParam"
+        - $ref: "../parameters/aircraftParameters.yaml#/parameters/limitUaParam"
+
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessProducts"
+      summary: "List products"
+      operationId: "listproducts"
+      description: "List products"
+    post:
+      tags:
+        - "product"
+      responses:
+        "201":
+          $ref: "../responses/responses.yaml#/responses/SuccessProduct"
+      summary: "Create or replace new product "
+      operationId: "createproduct"
+      requestBody:
+        $ref: "../schemas/requestBodies.yaml#/requestBodies/productBody"
+
+  productId:
+    get:
+      tags:
+        - "product"
+      parameters:
+        - $ref: "../parameters/productParameters.yaml#/parameters/productIdParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/typeProductParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/creationDateProductParam"
+        - $ref: "../parameters/productParameters.yaml#/parameters/modificationDateProductParam"
+        - $ref: "../parameters/sensorParameters.yaml#/parameters/typeSensorParam"
+
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessProduct"
+      summary: "Get a product"
+      operationId: "getproductById"
+      description: "Fetch product resource by Id."
+    put:
+      tags:
+        - "product"
+      parameters:
+        - $ref: "../parameters/productParameters.yaml#/parameters/productIdParam"
+      responses:
+        200:
+          $ref: "../responses/responses.yaml#/responses/SuccessProduct"
+      summary: "Replace or create a product"
+      operationId: "replaceproductById"
+      requestBody:
+        $ref: "../schemas/requestBodies.yaml#/requestBodies/productBody"
+      description: "Create or replace product resource."
+    delete:
+      tags:
+        - "product"
+      parameters:
+        - $ref: "../parameters/productParameters.yaml#/parameters/productIdParam"
+      responses:
+        204:
+          $ref: "../responses/responses.yaml#/responses/Deleted"
+      summary: "Delete a product"
+      operationId: "deleteproductById"
+      description: "Delete product resource by Id."

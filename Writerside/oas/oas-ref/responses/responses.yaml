@@ -63,3 +63,22 @@ responses:
       application/json:
         schema:
           $ref: "../schemas/schemas.yaml#/schemas/sensor"
+
+  SuccessProducts:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          type: "array"
+          items:
+            $ref: "../schemas/schemas.yaml#/schemas/product"
+
+  SuccessProduct:
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          type: "array"
+          items:
+            $ref: "../schemas/schemas.yaml#/schemas/product"
+
