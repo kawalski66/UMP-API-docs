@@ -21,3 +21,50 @@ paths:
       description: "Fetch list of aircraft"
 
   aircraftId:
+    get:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/parameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/typeUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/modelUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/statusUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/lastFlightUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/dateCreatedUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/dateModifiedUaParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/locationUaParam"
+
+      responses:
+        "200":
+          $ref: "../responses/responses.yaml#/responses/SuccessAircraftId"
+      summary: "Get an aircraft"
+      operationId: "getaircraftById"
+      description: "Fetch aircraft by its ID."
+    put:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/parameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
+      responses:
+        "201":
+          $ref: "../responses/responses.yaml#/responses/SuccessAircraftId"
+      summary: "Replace or create an aircraft"
+      operationId: "replaceaircraftById"
+      requestBody:
+        $ref: "../schemas/requestBodies.yaml#/requestBodies/aircraftIdBody"
+      description: "Creates or replaces all aircraft resource."
+    delete:
+      tags:
+        - "aircraft"
+      parameters:
+        - $ref: "../parameters/parameters.yaml#/parameters/aircraftIdParam"
+        - $ref: "../parameters/parameters.yaml#/parameters/registrationNumUaParam"
+
+      responses:
+        "204":
+          $ref: "../responses/responses.yaml#/responses/Deleted"
+      summary: "Delete an aircraft"
+      operationId: "deleteaircraftById"
+      description: "Deletes aircraft resource by Id."

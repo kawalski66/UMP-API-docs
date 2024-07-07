@@ -10,53 +10,7 @@ paths:
   /ump/aircraft:
     $ref: "./paths/paths.yaml#/paths/listAircraft"
   /ump/aircraft/{aircraft_id}:
-    get:
-      tags:
-        - "aircraft"
-      parameters:
-        - $ref: "#/components/parameters/aircraftIdParam"
-        - $ref: "#/components/parameters/typeUaParam"
-        - $ref: "#/components/parameters/modelUaParam"
-        - $ref: "#/components/parameters/statusUaParam"
-        - $ref: "#/components/parameters/lastFlightUaParam"
-        - $ref: "#/components/parameters/registrationNumUaParam"
-        - $ref: "#/components/parameters/dateCreatedUaParam"
-        - $ref: "#/components/parameters/dateModifiedUaParam"
-        - $ref: "#/components/parameters/locationUaParam"
-
-      responses:
-        "200":
-          $ref: "#/components/responses/SuccessAircraftId"
-      summary: "Get an aircraft"
-      operationId: "getaircraftById"
-      description: "Fetch aircraft by its ID."
-    put:
-      tags:
-        - "aircraft"
-      parameters:
-        - $ref: "#/components/parameters/aircraftIdParam"
-        - $ref: "#/components/parameters/registrationNumUaParam"
-      responses:
-        "201":
-          $ref: "#/components/responses/SuccessAircraftId"
-      summary: "Replace or create an aircraft"
-      operationId: "replaceaircraftById"
-      requestBody:
-        $ref: "#/components/requestBodies/aircraftIdBody"
-      description: "Creates or replaces all aircraft resource."
-    delete:
-      tags:
-        - "aircraft"
-      parameters:
-        - $ref: "#/components/parameters/aircraftIdParam"
-        - $ref: "#/components/parameters/registrationNumUaParam"
-
-      responses:
-        "204":
-          $ref: "#/components/responses/Deleted"
-      summary: "Delete an aircraft"
-      operationId: "deleteaircraftById"
-      description: "Deletes aircraft resource by Id."
+    $ref: "./paths/paths.yaml#/paths/aircraftId"
   /ump/aircraft/{aircraft_id}/transmitters:
     get:
       tags:
